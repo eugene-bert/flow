@@ -1,0 +1,18 @@
+{
+  "name": "flow",
+  "version": "1.0.0",
+  "main": "packages/app/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start:flow-client": "yarn workspace flow-client start",
+    "start:flow-server": "yarn workspace flow-server dev"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.22.1",
+    "prettier": "^2.0.5"
+  }
+}

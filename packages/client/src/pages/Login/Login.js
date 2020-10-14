@@ -5,13 +5,15 @@ import {
   FormField,
   TextInput,
 } from "grommet/index";
-import React from "react";
+import React, { useState } from "react";
+import { setContext } from '@apollo/client/link/context';
 import { loginMutation } from "../../graphql/mutations/user";
 import { useMutation } from "@apollo/client";
+import {client} from '../../index';
 
 export const Login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loginHandle, { data }] = useMutation(loginMutation);
 
   return (
@@ -42,7 +44,7 @@ export const Login = () => {
               label="Submit"
               onClick={() => {
                 loginHandle({ variables: { email, password } })
-                  .then((data) => console.log(data))
+                  .then((data) => localStorage.setItem('token', data.data.login.token))
                   .catch((error) => console.log(error));
               }}
             />
