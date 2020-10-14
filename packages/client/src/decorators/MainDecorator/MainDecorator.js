@@ -1,21 +1,19 @@
 import React from "react";
 import { Box } from "grommet";
-import { useSelector, useDispatch } from "react-redux";
-import { setDeviceSize } from "../../store/actions";
 import { SideBar } from "../../components/SideBar/SideBar";
 import { Login } from "../../pages/Login/Login";
 import { Switch, Route } from "react-router-dom";
+import {useSelector} from 'react-redux';
+import {Home} from '../../pages/Home/Home';
 
-const MainDecorator = (props) => {
+const MainDecorator = () => {
   const state = useSelector((state) => state);
-  const dispatch = useDispatch();
-
-  dispatch(setDeviceSize(props.deviceSize));
 
   return (
     <Box direction="row" flex>
       <Switch>
-        <Route path="/" component={Login} exact />
+        <Route path="/" component={state.authReducer.authenticated ? Home : Login} exact />
+        <Route path="/login" component={state.authReducer.authenticated ? Home : Login} exact />
       </Switch>
       <SideBar />
     </Box>

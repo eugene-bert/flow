@@ -1,9 +1,9 @@
-import { Box, Button, Heading, Avatar } from "grommet/index";
+import { Box, Button, Heading } from "grommet/index";
 import React from "react";
-import { Menu, Like } from "grommet-icons/index";
-import { setShowSideBar } from "../../store/actions";
+import { Menu } from "grommet-icons/index";
+import { toggleSideBar } from "../../actions/sideBarActions"
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const AppBar = (props) => (
   <Box
@@ -20,7 +20,6 @@ export const AppBar = (props) => (
 );
 
 export const TopBar = () => {
-  const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
   return (
@@ -30,9 +29,9 @@ export const TopBar = () => {
       </Heading>
       <Button
         icon={<Menu />}
-        onClick={() =>
-          dispatch(setShowSideBar(!state.sideBarReducer.sidebarIsOpen))
-        }
+        onClick={() => {
+          dispatch(toggleSideBar())
+        }}
       />
     </AppBar>
   );

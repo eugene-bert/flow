@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 import AppRoot from "./decorators";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { store } from "./store";
 import {setContext} from '@apollo/client/link/context';
 
 
@@ -18,7 +18,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `x-token ${token}` : "",
+      "x-token": token ? `${token}` : "",
     }
   }
 });

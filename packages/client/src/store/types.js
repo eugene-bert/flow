@@ -1,2 +1,0 @@
-export const SET_SHOW_SIDEBAR = "SET_SHOW_SIDEBAR";
-export const SET_DEVICE_SIZE = "SET_DEVICE_SIZE";

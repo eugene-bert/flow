@@ -6,15 +6,26 @@ import {
   TextInput,
 } from "grommet/index";
 import React, { useState } from "react";
-import { setContext } from '@apollo/client/link/context';
 import { loginMutation } from "../../graphql/mutations/user";
 import { useMutation } from "@apollo/client";
-import {client} from '../../index';
+import {useDispatch, useSelector} from 'react-redux';
+import {signIn} from '../../actions/authActions';
 
 export const Login = () => {
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginHandle, { data }] = useMutation(loginMutation);
+  const [loginHandle] = useMutation(loginMutation);
+  const loginAction = () => {
+    loginHandle({ variables: { email, password } })
+      .then((data) => {
+        dispatch(signIn(data))
+        console.log(data)
+        console.log(state)
+      })
+      .catch((error) => console.log(error));
+  }
 
   return (
     <Box flex align="center" justify="center">
@@ -25,14 +36,12 @@ export const Login = () => {
         <Box pad={{ top: "medium" }} gap="small">
           <FormField name="email" htmlfor="text-input-id" label="email">
             <TextInput
-              id="text-input-id"
               name="email"
               onChange={(event) => setEmail(event.target.value)}
             />
           </FormField>
           <FormField name="password" htmlfor="text-input-id" label="password">
             <TextInput
-              id="text-input-id"
               name="password"
               onChange={(event) => setPassword(event.target.value)}
             />
@@ -42,11 +51,7 @@ export const Login = () => {
               type="submit"
               primary
               label="Submit"
-              onClick={() => {
-                loginHandle({ variables: { email, password } })
-                  .then((data) => localStorage.setItem('token', data.data.login.token))
-                  .catch((error) => console.log(error));
-              }}
+              onClick={() => loginAction()}
             />
           </Box>
         </Box>

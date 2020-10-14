@@ -4,9 +4,13 @@
   "main": "packages/app/index.js",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": "10.15.0",
+    "npm": "6.6.0"
+  },
   "scripts": {
-    "start:flow-client": "yarn workspace flow-client start",
-    "start:flow-server": "yarn workspace flow-server dev"
+    "client": "yarn workspace flow-client start",
+    "server": "yarn workspace flow-server dev"
   },
   "workspaces": [
     "packages/*"
