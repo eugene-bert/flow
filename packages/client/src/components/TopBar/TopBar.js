@@ -1,7 +1,7 @@
 import { Box, Button, Heading } from "grommet/index";
 import React from "react";
 import { Menu } from "grommet-icons/index";
-import { toggleSideBar } from "../../actions/sideBarActions"
+import { toggleSideBar } from "../../actions/sideBarActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -30,7 +30,7 @@ export const TopBar = () => {
       <Button
         icon={<Menu />}
         onClick={() => {
-          dispatch(toggleSideBar())
+          dispatch(toggleSideBar());
         }}
       />
     </AppBar>

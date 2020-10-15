@@ -14,13 +14,17 @@ const issueSchema = new mongoose.Schema({
     required: true
   },
   labels: {
-    type: String,
+    type: Array,
     required: false
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  column: {
+    type: String,
+    required: false
   },
   created: {
     type: Date,

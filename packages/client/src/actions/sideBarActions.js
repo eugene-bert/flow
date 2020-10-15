@@ -1,11 +1,11 @@
 export const openSideBar = () => {
-  return { type: 'OPEN_SIDEBAR' }
+  return { type: "OPEN_SIDEBAR" };
 };
 
 export const closeSideBar = () => {
-  return { type: 'CLOSE_SIDEBAR'}
+  return { type: "CLOSE_SIDEBAR" };
 };
 
 export const toggleSideBar = () => {
-  return { type: 'TOGGLE_SIDEBAR' }
-}
+  return { type: "TOGGLE_SIDEBAR" };
+};

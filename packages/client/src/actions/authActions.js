@@ -7,3 +7,7 @@ export const signOut = () => {
   localStorage.removeItem("token");
   return { type: "AUTH_SIGNOUT" };
 };
+
+export const signUp = () => {
+  return { type: "AUTH_SIGNUP" };
+};

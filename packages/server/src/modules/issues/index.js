@@ -10,7 +10,8 @@ const typeDefs = gql`
     createIssue(
       title: String!
       description: String!
-      labels: String,
+      column: String,
+      labels: [String],
       assignee: [String]
     ): Issue
   }
@@ -20,7 +21,8 @@ const typeDefs = gql`
     title: String!
     assignee: [User]
     description: String!
-    labels: String
+    labels: [String]
+    column: String,
     createdBy: User!
     created: DateTime!
   }

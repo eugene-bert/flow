@@ -32,7 +32,7 @@ export const SideBar = () => {
                 Sign out
               </Button>
             ) : (
-              <Link to="/login" onClick={() =>  dispatch(closeSideBar())}>
+              <Link to="/login" onClick={() => dispatch(closeSideBar())}>
                 <Button>Login</Button>
               </Link>
             )}
@@ -63,7 +63,7 @@ export const SideBar = () => {
                 Sign out
               </Button>
             ) : (
-              <Link to="/login" onClick={() =>  dispatch(closeSideBar())}>
+              <Link to="/login" onClick={() => dispatch(closeSideBar())}>
                 <Button>Login</Button>
               </Link>
             )}
