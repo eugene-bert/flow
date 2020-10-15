@@ -4,7 +4,6 @@ const signUpMutation = gql`
   mutation($email: String!, $password: String!) {
     signup(email: $email, password: $password) {
       email
-      password
     }
   }
 `;

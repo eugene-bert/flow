@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import MainDecorator from "./MainDecorator/MainDecorator";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Box, Grommet, ResponsiveContext } from "grommet/index";

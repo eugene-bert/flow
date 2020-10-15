@@ -6,6 +6,7 @@ export const theme = {
   global: {
     colors: {
       brand: "#90ee90",
+      accent:"#FFCA58",
       background: {
         dark: "#111111",
         light: "#FFFFFF",

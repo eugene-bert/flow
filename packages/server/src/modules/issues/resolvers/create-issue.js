@@ -1,7 +1,7 @@
 const Issue = require('../../../models/issue')
 
 const createIssue = async (_, {
-  title, assignee, description, labels
+  title, assignee, description, labels, column
 }, { user }) => {
   const userId = user._id.toString()
 
@@ -10,6 +10,7 @@ const createIssue = async (_, {
     assignee,
     description,
     labels,
+    column,
     createdBy: userId
   })
 
