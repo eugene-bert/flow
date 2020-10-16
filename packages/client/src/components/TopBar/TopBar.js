@@ -2,8 +2,9 @@ import { Box, Button, Heading } from "grommet/index";
 import React from "react";
 import { Menu } from "grommet-icons/index";
 import { toggleSideBar } from "../../actions/sideBarActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import {Text} from 'grommet';
 
 export const AppBar = (props) => (
   <Box
@@ -25,7 +26,9 @@ export const TopBar = () => {
   return (
     <AppBar>
       <Heading level="3" margin="none">
-        <Link to="/">Flow</Link>
+        <Link to="/">
+          <Text size="'large'">Flow</Text>
+        </Link>
       </Heading>
       <Button
         icon={<Menu />}

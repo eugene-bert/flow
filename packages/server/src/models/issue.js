@@ -26,6 +26,10 @@ const issueSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  dashboard: {
+    type: String,
+    required: false
+  },
   created: {
     type: Date,
     default: Date.now

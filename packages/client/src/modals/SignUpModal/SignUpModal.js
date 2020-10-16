@@ -39,7 +39,7 @@ export const SignUpModal = () => {
           }}
         >
           {!state.authReducer.registered ? (
-            <Box align="center" justify="center">
+            <Box align="center" justify="center" width="medium">
               <Heading level={4} margin="none">
                 <strong>Sign Up</strong>
               </Heading>

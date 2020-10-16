@@ -3,7 +3,7 @@ import { Box, Button, Layer, Text } from "grommet";
 import { Form, FormField, Heading, TextArea, TextInput } from "grommet/index";
 import { AddCircle } from 'grommet-icons';
 
-export const AddIssueModal = () => {
+export const ColumnAddIssueModal = (props) => {
   const [inputs, setInputs] = useState({});
   const [show, setShow] = useState();
 
@@ -19,10 +19,10 @@ export const AddIssueModal = () => {
             setShow(false);
           }}
         >
-          <Box flex align="center" justify="center">
+          <Box flex align="center" justify="center" width="medium">
             <Box align="center" justify="center">
               <Heading level={4} margin="none">
-                <strong>Add new issue</strong>
+                <strong>Add new issue to {props.columnName}</strong>
               </Heading>
               <Box gap="xsmall">
                 <Form onSubmit={(data) => console.log(inputs)}>
@@ -63,6 +63,7 @@ export const AddIssueModal = () => {
                     <TextArea
                       name="description"
                       type="description"
+                      size="xlarge"
                       onChange={({ target }) =>
                         setInputs((state) => ({
                           ...state,

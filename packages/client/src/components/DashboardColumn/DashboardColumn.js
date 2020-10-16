@@ -1,28 +1,40 @@
 import React from "react";
-import {Box, Heading, Paragraph} from 'grommet/index';
-import {AddIssueModal} from '../../modals/AddIssueModal/AddIssueModal';
+import { Box, Heading } from "grommet/index";
+import { ColumnAddIssueModal } from "../../modals/ColumnAddIssueModal/ColumnAddIssueModal";
+import { IssueListComponent } from "../IssueListComponent/IssueListComponent";
+import {useSelector} from 'react-redux';
+import {Text} from 'grommet';
+import {FormNext} from 'grommet-icons';
 
-export const DashboardColumn = () => {
+export const DashboardColumn = (props) => {
+  const state = useSelector((state) => state);
+/*  const issues = state.issueReducer.issues.filter(
+    (el) => el.column === props.columnName
+  );*/
+
   return (
     <Box
       direction="column"
       border={{ color: "brand", size: "medium" }}
       basis="medium"
       width={("medium", { min: "medium" })}
-      pad="medium"
-      margin={{right: "small"}}
+      pad="small"
+      margin={{ right: "small" }}
       responsive={false}
     >
       <Heading level="3" margin="small" textAlign="center">
-        TODO
+        {props.columnName}
+        {console.log(state)}
       </Heading>
-      <Paragraph margin="none">
-        We can't find the page that you're looking for. Check the URL and
-        try again.
-      </Paragraph>
+      <IssueListComponent columnName={props.columnName} />
       <Box margin="small">
-        <AddIssueModal />
+        <ColumnAddIssueModal columnName={props.columnName} />
       </Box>
+        {state.mainReducer.deviceSize === "small" ? (
+          <Box flex align="center" justify="center" width="medium" direction="row">
+            <Text color='brand' weight="bold" size="large"> Swipe</Text>
+            <FormNext color='brand' size="large"/></Box>
+        ) : null }
     </Box>
-  )
-}
+  );
+};

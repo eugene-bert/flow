@@ -1,15 +1,15 @@
 const initialState = {
-  issues: null,
-  columns: null,
+  user: {
+    email: null
+  }
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'FETCH_ISSUES':
+    case 'FETCH_USER':
       return {
         ...state,
-        issues: action.issues,
-        columns: action.columns
+        user: action.payload,
       };
     default:
       return state;

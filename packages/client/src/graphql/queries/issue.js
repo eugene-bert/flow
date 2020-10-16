@@ -5,6 +5,10 @@ const issueQuery = gql`
         issues{
             id
             title
+            description
+            column
+            dashboard
+            labels
         }
     }
 `;

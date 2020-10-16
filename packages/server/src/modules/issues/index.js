@@ -11,6 +11,7 @@ const typeDefs = gql`
       title: String!
       description: String!
       column: String,
+      dashboard: String,
       labels: [String],
       assignee: [String]
     ): Issue
@@ -23,6 +24,7 @@ const typeDefs = gql`
     description: String!
     labels: [String]
     column: String,
+    dashboard: String,
     createdBy: User!
     created: DateTime!
   }

@@ -6,13 +6,13 @@ import { closeSideBar, toggleSideBar } from "../../actions/sideBarActions";
 import { signOut } from "../../actions/authActions";
 import { Link } from "react-router-dom";
 
-export const SideBar = () => {
+export const SideBar = (props) => {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
   return (
     <React.Fragment>
-      {!state.sideBarReducer.isOpen || state.deviceSize !== "small" ? (
+      {!state.sideBarReducer.isOpen || props.deviceSize !== "small" ? (
         <Collapsible direction="horizontal" open={state.sideBarReducer.isOpen}>
           <Box
             flex
@@ -23,14 +23,22 @@ export const SideBar = () => {
             justify="center"
           >
             {state.authReducer.authenticated ? (
-              <Button
-                onClick={() => {
-                  dispatch(signOut());
-                  dispatch(closeSideBar());
-                }}
-              >
-                Sign out
-              </Button>
+              <Box direction="column">
+                <Link to="/profile" onClick={() => dispatch(closeSideBar())}>
+                  <Button>My profile</Button>
+                </Link>
+                <Link to="/dashboard" onClick={() => dispatch(closeSideBar())}>
+                  <Button>Dashboard</Button>
+                </Link>
+                <Button
+                  onClick={() => {
+                    dispatch(signOut());
+                    dispatch(closeSideBar());
+                  }}
+                >
+                  Sign out
+                </Button>
+              </Box>
             ) : (
               <Link to="/login" onClick={() => dispatch(closeSideBar())}>
                 <Button>Login</Button>
@@ -54,14 +62,22 @@ export const SideBar = () => {
           </Box>
           <Box fill background="light-2" align="center" justify="center">
             {state.authReducer.authenticated ? (
-              <Button
-                onClick={() => {
-                  dispatch(signOut());
-                  dispatch(closeSideBar());
-                }}
-              >
-                Sign out
-              </Button>
+              <Box direction="column">
+                <Link to="/profile" onClick={() => dispatch(closeSideBar())}>
+                  <Button>My profile</Button>
+                </Link>
+                <Link to="/dashboard" onClick={() => dispatch(closeSideBar())}>
+                  <Button>Dashboard</Button>
+                </Link>
+                <Button
+                  onClick={() => {
+                    dispatch(signOut());
+                    dispatch(closeSideBar());
+                  }}
+                >
+                  Sign out
+                </Button>
+              </Box>
             ) : (
               <Link to="/login" onClick={() => dispatch(closeSideBar())}>
                 <Button>Login</Button>
