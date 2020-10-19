@@ -9,11 +9,20 @@ import {
 } from "grommet/index";
 import React, {useState} from 'react';
 import {meQuery} from '../../graphql/queries/user';
-import {useQuery} from '@apollo/client';
+import {useMutation, useQuery} from '@apollo/client';
+import {updateMeMutation} from '../../graphql/mutations/user';
 
 export const MyProfilePage = () => {
   const [inputs, setInputs] = useState({});
+  const {email, firstName, lastName } = inputs
   const {data, loading, error} = useQuery(meQuery)
+  const [updateMe] = useMutation(updateMeMutation)
+
+  const sumbitHandle = () => {
+    updateMe({variables: { email, firstName, lastName }}).then(data => {
+      console.log(data)
+    })
+  }
 
 
 
@@ -24,7 +33,7 @@ export const MyProfilePage = () => {
           <strong>My profile</strong>
         </Heading>
         <Box gap="xsmall">
-          <Form onSubmit={(data) => console.log(inputs)}>
+          <Form onSubmit={(data) => sumbitHandle()}>
             <FormField
               name="email"
               label={<Text size="small">Email</Text>}
@@ -32,33 +41,35 @@ export const MyProfilePage = () => {
               <TextInput
                 name="email"
                 type="email"
-                placeholder={data.me.email}
+                defaultValue={data.me.email}
                 onChange={({ target }) =>
                   setInputs((state) => ({ ...state, email: target.value }))
                 }
               />
             </FormField>
             <FormField
-              name="name"
+              name="firstName"
               label={<Text size="small">Name</Text>}
             >
               <TextInput
-                name="name"
-                type="name"
+                name="firstName"
+                type="firstName"
+                defaultValue={data.me.firstName}
                 onChange={({ target }) =>
-                  setInputs((state) => ({ ...state, name: target.value }))
+                  setInputs((state) => ({ ...state, firstName: target.value }))
                 }
               />
             </FormField>
               <FormField
-                name="surname"
+                name="lastName"
                 label={<Text size="small">Surname</Text>}
               >
                 <TextInput
-                  name="surname"
-                  type="surname"
+                  name="lastName"
+                  type="lastName"
+                  defaultValue={data.me.lastName}
                   onChange={({ target }) =>
-                    setInputs((state) => ({ ...state, surname: target.value }))
+                    setInputs((state) => ({ ...state, lastName: target.value }))
                   }
                 />
               </FormField>

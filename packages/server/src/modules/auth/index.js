@@ -17,6 +17,12 @@ const typeDefs = gql`
       firstName: String,
       lastName: String
     ): User
+
+    updateMe(
+      email: String,
+      firstName: String,
+      lastName: String
+    ): User @isAuthenticated
   }
 
   type AuthData {

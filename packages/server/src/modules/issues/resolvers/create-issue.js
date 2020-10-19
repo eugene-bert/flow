@@ -11,8 +11,7 @@ const createIssue = async (_, {
     description,
     labels,
     column,
-    createdById: userId,
-    createdBy: user,
+    createdById: userId
   })
 
   await newIssue

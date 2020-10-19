@@ -17,4 +17,14 @@ const loginMutation = gql`
   }
 `;
 
-export { signUpMutation, loginMutation };
+const updateMeMutation = gql`
+    mutation($email: String, $firstName: String, $lastName: String) {
+        updateMe(email: $email, firstName: $firstName, lastName: $lastName) {
+            email,
+            firstName,
+            lastName
+        }
+    }
+`;
+
+export { signUpMutation, loginMutation, updateMeMutation };

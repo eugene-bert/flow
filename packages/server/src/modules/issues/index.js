@@ -17,6 +17,16 @@ const typeDefs = gql`
       labels: [String],
       assignee: [String]
     ): Issue
+
+    updateIssue(
+      id: ID!,
+      title: String,
+      description: String,
+      column: String,
+      dashboard: String,
+      labels: [String],
+      assignee: [String]
+    ): Issue
   }
 
   type Issue {
@@ -28,7 +38,6 @@ const typeDefs = gql`
     column: String!,
     dashboard: String,
     createdById: User!,
-    createdBy: User!,
     created: DateTime!
   }
 `

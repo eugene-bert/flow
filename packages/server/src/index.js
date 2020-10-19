@@ -8,6 +8,7 @@ const mongoHost = new url.URL(config.MONGODB_URI).host
 
 const startServer = async function () {
   const mongooseOptions = {
+    useFindAndModify: true,
     readPreference: 'primaryPreferred',
     useNewUrlParser: true,
     useUnifiedTopology: true,

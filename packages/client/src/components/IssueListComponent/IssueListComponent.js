@@ -2,11 +2,11 @@ import React from "react";
 import { Box } from "grommet";
 import { IssueComponent } from "../IssueComponent/IssueComponent";
 import {useQuery} from '@apollo/client';
-import {issueQuery} from '../../graphql/queries/issue';
+import {createdByMeQuery} from '../../graphql/queries/issue';
 
 export const IssueListComponent = (props) => {
-  const {data, loading, error} = useQuery(issueQuery)
-  const issues = data.issues.filter(
+  const {data, loading, error} = useQuery(createdByMeQuery)
+  const issues = data.createdByMeIssues.filter(
     (el) => el.column === props.columnName
   );
 
@@ -14,7 +14,7 @@ export const IssueListComponent = (props) => {
     <Box>
       <Box flex align="center" justify="center">
         {issues.map((el, index) => {
-          return <IssueComponent key={index} title={el.title} description={el.description}/>;
+          return <IssueComponent key={index} title={el.title} description={el.description} id={el.id}/>;
         })}
       </Box>
     </Box>

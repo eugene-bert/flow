@@ -3,6 +3,7 @@ const issues = require('./issues')
 const createIssue = require('./create-issue')
 const createdByMeIssues = require('./createdByMeIssues');
 const createdByIssues = require('./createdByIssues');
+const updateIssue = require('./updateIssue');
 
 const resolvers = {
   Query: {
@@ -12,7 +13,8 @@ const resolvers = {
     createdByMeIssues
   },
   Mutation: {
-    createIssue
+    createIssue,
+    updateIssue
   }
 }
 
