@@ -11,11 +11,12 @@ const createIssue = async (_, {
     description,
     labels,
     column,
-    createdBy: userId
+    createdById: userId,
+    createdBy: user,
   })
 
   await newIssue
-    .populate('createdBy')
+    .populate('createdById')
     .execPopulate()
 
   return newIssue.save()

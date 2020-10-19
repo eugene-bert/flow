@@ -2,9 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 import AppRoot from "./decorators";
-import { Provider } from "react-redux";
-import { store } from "./store";
 import {setContext} from '@apollo/client/link/context';
+import {cache} from './cache'
 
 
 const httpLink = createHttpLink({
@@ -25,14 +24,12 @@ const authLink = setContext((_, { headers }) => {
 
 export const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache
 });
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Provider store={store}>
       <AppRoot />
-    </Provider>
   </ApolloProvider>,
   document.getElementById("root")
 );

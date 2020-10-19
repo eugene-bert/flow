@@ -7,34 +7,24 @@ import {
   Text,
   Form,
 } from "grommet/index";
-import React, {useEffect, useState} from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import {client} from '../../index';
+import React, {useState} from 'react';
 import {meQuery} from '../../graphql/queries/user';
-import {fetchUser, setUserEmail} from '../../actions/userActions';
+import {useQuery} from '@apollo/client';
 
 export const MyProfilePage = () => {
-  const state = useSelector((state) => state.userReducer);
-  const dispatch = useDispatch();
   const [inputs, setInputs] = useState({});
+  const {data, loading, error} = useQuery(meQuery)
 
-  useEffect(()=> {
-    const fetchData = async _ => {
-      const result = await client.query({query: meQuery});
-      dispatch(fetchUser(result.data.me))
-    }
-    fetchData().catch(r => console.log(r))
-  }, []);
 
-  return state.user ? (
+
+  return data ? (
     <Box flex align="center" justify="center">
       <Box align="center" justify="center">
         <Heading level={4} margin="none">
           <strong>My profile</strong>
-          {console.log(state.user)}
         </Heading>
         <Box gap="xsmall">
-          <Form onSubmit={(data) => console.log(state)}>
+          <Form onSubmit={(data) => console.log(inputs)}>
             <FormField
               name="email"
               label={<Text size="small">Email</Text>}
@@ -42,7 +32,7 @@ export const MyProfilePage = () => {
               <TextInput
                 name="email"
                 type="email"
-                placeholder={state.user.email}
+                placeholder={data.me.email}
                 onChange={({ target }) =>
                   setInputs((state) => ({ ...state, email: target.value }))
                 }

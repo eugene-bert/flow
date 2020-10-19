@@ -1,26 +1,24 @@
 import React, { useState } from "react";
 import { Box, Button, Layer, Text } from "grommet";
 import { FormField, Heading, TextInput } from "grommet/index";
-import { useMutation } from "@apollo/client";
+import {useMutation, useReactiveVar} from '@apollo/client';
 import { signUpMutation } from "../../graphql/mutations/user";
-import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "../../actions/authActions";
 import { Link } from "react-router-dom";
+import {isRegisteredVar} from '../../cache';
 
 export const SignUpModal = () => {
-  const state = useSelector((state) => state);
-  const dispatch = useDispatch();
   const [show, setShow] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [signUpHandle] = useMutation(signUpMutation);
+  const isRegistered = useReactiveVar(isRegisteredVar)
+
   const signUpUser = () => {
     if (password === confirmPassword) {
       signUpHandle({ variables: { email, password } })
         .then((data) => {
-          dispatch(signUp());
-          console.log(data);
+          isRegisteredVar(true)
         })
         .catch((error) => console.log(error));
     } else {
@@ -38,7 +36,7 @@ export const SignUpModal = () => {
             setShow(false);
           }}
         >
-          {!state.authReducer.registered ? (
+          {!isRegistered ? (
             <Box align="center" justify="center" width="medium">
               <Heading level={4} margin="none">
                 <strong>Sign Up</strong>

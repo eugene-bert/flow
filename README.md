@@ -3,7 +3,6 @@
 Issue tracking application
 
 - ⚛️ React 
-- 👾 Redux 
 - 🧪 GraphQl
 - 🌱 MongoDb
 - 💅 Grommet

@@ -18,6 +18,11 @@ const issueSchema = new mongoose.Schema({
     required: false
   },
   createdBy: {
+    type: mongoose.Schema.Types,
+    ref: 'User',
+    required: true
+  },
+  createdById: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true

@@ -1,11 +1,11 @@
 const { ApolloError } = require('apollo-server-express')
 const Issue = require('../../../models/issue')
 
-const issue = async (_, args) => {
-  const { id } = args
+const createdByMeIssues = async (_, {
+}, { user }) => {
+  const userId = user._id.toString()
   const issue = await Issue
-    .findById(id)
-    .populate('createdById')
+    .find({createdBy: user})
 
   if (!issue) {
     throw new ApolloError('Not found')
@@ -14,4 +14,4 @@ const issue = async (_, args) => {
   return issue
 }
 
-module.exports = issue
+module.exports = createdByMeIssues

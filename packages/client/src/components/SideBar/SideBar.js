@@ -1,19 +1,19 @@
 import { Box, Collapsible, Layer, Button } from "grommet/index";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { FormClose } from "grommet-icons";
-import { closeSideBar, toggleSideBar } from "../../actions/sideBarActions";
-import { signOut } from "../../actions/authActions";
 import { Link } from "react-router-dom";
+import {isLoggedInVar, isSideBarOpenVar} from '../../cache';
+import {useReactiveVar} from '@apollo/client';
+import {client} from '../../index';
 
 export const SideBar = (props) => {
-  const state = useSelector((state) => state);
-  const dispatch = useDispatch();
+  const sideBar = useReactiveVar(isSideBarOpenVar)
+  const loggedIn = useReactiveVar(isLoggedInVar)
 
   return (
     <React.Fragment>
-      {!state.sideBarReducer.isOpen || props.deviceSize !== "small" ? (
-        <Collapsible direction="horizontal" open={state.sideBarReducer.isOpen}>
+      {!sideBar || props.deviceSize !== "small" ? (
+        <Collapsible direction="horizontal" open={sideBar}>
           <Box
             flex
             width="medium"
@@ -22,25 +22,28 @@ export const SideBar = (props) => {
             align="center"
             justify="center"
           >
-            {state.authReducer.authenticated ? (
+            {loggedIn ? (
               <Box direction="column">
-                <Link to="/profile" onClick={() => dispatch(closeSideBar())}>
+                <Link to="/profile" onClick={() => isSideBarOpenVar(false)}>
                   <Button>My profile</Button>
                 </Link>
-                <Link to="/dashboard" onClick={() => dispatch(closeSideBar())}>
+                <Link to="/dashboard" onClick={() => isSideBarOpenVar(false)}>
                   <Button>Dashboard</Button>
                 </Link>
                 <Button
                   onClick={() => {
-                    dispatch(signOut());
-                    dispatch(closeSideBar());
+                    client.cache.evict({fieldName: 'me'})
+                    client.cache.gc();
+                    localStorage.clear();
+                    isLoggedInVar(false);
+                    isSideBarOpenVar(false);
                   }}
                 >
                   Sign out
                 </Button>
               </Box>
             ) : (
-              <Link to="/login" onClick={() => dispatch(closeSideBar())}>
+              <Link to="/login" onClick={() => isSideBarOpenVar(false)}>
                 <Button>Login</Button>
               </Link>
             )}
@@ -57,29 +60,32 @@ export const SideBar = (props) => {
           >
             <Button
               icon={<FormClose />}
-              onClick={() => dispatch(toggleSideBar())}
+              onClick={() => isSideBarOpenVar(false)}
             />
           </Box>
           <Box fill background="light-2" align="center" justify="center">
-            {state.authReducer.authenticated ? (
+            {loggedIn ? (
               <Box direction="column">
-                <Link to="/profile" onClick={() => dispatch(closeSideBar())}>
+                <Link to="/profile" onClick={() => isSideBarOpenVar(false)}>
                   <Button>My profile</Button>
                 </Link>
-                <Link to="/dashboard" onClick={() => dispatch(closeSideBar())}>
+                <Link to="/dashboard" onClick={() => isSideBarOpenVar(false)}>
                   <Button>Dashboard</Button>
                 </Link>
                 <Button
                   onClick={() => {
-                    dispatch(signOut());
-                    dispatch(closeSideBar());
+                    client.cache.evict({fieldName: 'me'})
+                    client.cache.gc();
+                    localStorage.clear();
+                    isLoggedInVar(false);
+                    isSideBarOpenVar(false);
                   }}
                 >
                   Sign out
                 </Button>
               </Box>
             ) : (
-              <Link to="/login" onClick={() => dispatch(closeSideBar())}>
+              <Link to="/login" onClick={() => isSideBarOpenVar(false)}>
                 <Button>Login</Button>
               </Link>
             )}

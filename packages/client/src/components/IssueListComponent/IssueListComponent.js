@@ -1,11 +1,12 @@
 import React from "react";
 import { Box } from "grommet";
-import { useSelector } from "react-redux";
 import { IssueComponent } from "../IssueComponent/IssueComponent";
+import {useQuery} from '@apollo/client';
+import {issueQuery} from '../../graphql/queries/issue';
 
 export const IssueListComponent = (props) => {
-  const state = useSelector((state) => state);
-  const issues = state.issueReducer.issues.filter(
+  const {data, loading, error} = useQuery(issueQuery)
+  const issues = data.issues.filter(
     (el) => el.column === props.columnName
   );
 

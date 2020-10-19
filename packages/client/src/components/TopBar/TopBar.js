@@ -1,10 +1,9 @@
 import { Box, Button, Heading } from "grommet/index";
 import React from "react";
 import { Menu } from "grommet-icons/index";
-import { toggleSideBar } from "../../actions/sideBarActions";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {Text} from 'grommet';
+import {isSideBarOpenVar} from '../../cache';
 
 export const AppBar = (props) => (
   <Box
@@ -21,8 +20,6 @@ export const AppBar = (props) => (
 );
 
 export const TopBar = () => {
-  const dispatch = useDispatch();
-
   return (
     <AppBar>
       <Heading level="3" margin="none">
@@ -33,7 +30,7 @@ export const TopBar = () => {
       <Button
         icon={<Menu />}
         onClick={() => {
-          dispatch(toggleSideBar());
+          isSideBarOpenVar(!isSideBarOpenVar());
         }}
       />
     </AppBar>

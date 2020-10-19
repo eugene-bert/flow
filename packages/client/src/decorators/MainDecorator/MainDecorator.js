@@ -3,17 +3,19 @@ import { Box } from "grommet";
 import { SideBar } from "../../components/SideBar/SideBar";
 import { Login } from "../../pages/Login/Login";
 import { Switch, Route } from "react-router-dom";
-import {useSelector} from 'react-redux';
 import { Home } from "../../pages/Home/Home";
 import NotFound from '../../pages/NotFound/NotFound';
 import {DashboardPage} from '../../pages/DashboardPage/DashboardPage';
 import {MyProfilePage} from '../../pages/MyProfilePage/MyProfilePage';
+import {useReactiveVar} from '@apollo/client';
+import {deviceSizeVar, isLoggedInVar} from '../../cache';
 
 const MainDecorator = (props) => {
-  const state = useSelector((state) => state);
+  const loggedIn = useReactiveVar(isLoggedInVar)
+  const deviceSize = useReactiveVar(deviceSizeVar)
 
   useEffect(() => {
-    state.mainReducer.deviceSize = props.deviceSize;
+    deviceSizeVar(props.deviceSize);
   }, [props.deviceSize]);
 
   return (
@@ -22,22 +24,22 @@ const MainDecorator = (props) => {
         <Switch>
           <Route
             path="/"
-            component={state.authReducer.authenticated ? Home : Login}
+            component={loggedIn ? Home : Login}
             exact
           />
           <Route
             path="/login"
-            component={state.authReducer.authenticated ? DashboardPage : Login}
+            component={loggedIn ? DashboardPage : Login}
             exact
           />
           <Route
             path="/profile"
-            component={state.authReducer.authenticated ? MyProfilePage : Login}
+            component={loggedIn ? MyProfilePage : Login}
             exact
           />
           <Route
             path="/dashboard"
-            component={state.authReducer.authenticated ? DashboardPage : Login}
+            component={loggedIn ? DashboardPage : Login}
             exact
           />
           <Route component={NotFound} />

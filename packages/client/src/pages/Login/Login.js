@@ -10,25 +10,21 @@ import {
 import React, { useState } from "react";
 import { loginMutation } from "../../graphql/mutations/user";
 import { useMutation } from "@apollo/client";
-import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../../actions/authActions";
 import { SignUpModal } from "../../modals/SignUpModal/SignUpModal";
+import {isLoggedInVar} from '../../cache';
 
 export const Login = () => {
-  const state = useSelector((state) => state);
-  const dispatch = useDispatch();
   const [inputs, setInputs] = useState({});
   const {email, password} = inputs
   const [loginHandle] = useMutation(loginMutation);
   const loginAction = () => {
-    loginHandle({ variables: { email, password } })
-      .then((data) => {
-        dispatch(signIn(data));
-        console.log(data);
-        console.log(state);
-      })
+    loginHandle({ variables: { email, password } }).then((data) => {
+      localStorage.setItem("token", data.data.login.token)
+      localStorage.setItem("tokenExpiration", data.data.login.tokenExpiration)
+      isLoggedInVar(true)
+    })
       .catch((error) => console.log(error));
-  };
+  }
 
   return (
     <Box flex align="center" justify="center">

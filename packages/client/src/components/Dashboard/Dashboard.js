@@ -1,25 +1,18 @@
 import { Box  } from "grommet/index";
-import React, { useEffect } from 'react';
+import React from 'react';
 import { issueQuery } from "../../graphql/queries/issue";
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchIssues } from '../../actions/issueActions';
-import {client} from '../../index';
 import {DashboardColumn} from '../DashboardColumn/DashboardColumn';
+import {useQuery} from '@apollo/client';
 
 export const Dashboard = () => {
-  const state = useSelector((state) => state);
-  const dispatch = useDispatch();
   const mainColumnsArray = ["Todo", "Done", "In progress"]
+  const {data, loading, error} = useQuery(issueQuery)
 
-  useEffect(()=> {
-    const fetchData = async _ => {
-      const result = await client.query({query: issueQuery});
-      dispatch(fetchIssues(result.data.issues))
-    }
-    fetchData().catch(r => console.log(r))
-  }, []);
+  function removeDuplicates(data) {
+    return [...new Set(data)]
+  }
 
-  return state.issueReducer.columns ? (
+  return data ? (
       <Box direction="column" basis="full">
         <Box pad="medium">Dashboard</Box>
         <Box direction="row" overflow="scroll" basis="full">
@@ -27,7 +20,7 @@ export const Dashboard = () => {
           <DashboardColumn columnName={'Todo'}/>
           <DashboardColumn columnName={'In progress'}/>
           <DashboardColumn columnName={'Done'}/>
-          {state.issueReducer.columns.map((el, index) => {
+          {removeDuplicates(data.issues.map(el => el.column)).map((el, index) => {
             if (!mainColumnsArray.includes(el) && el !==null) {
               return <DashboardColumn key={index + 1} columnName={el}/>
             }

@@ -4,6 +4,8 @@ const typeDefs = gql`
   extend type Query {
     issue(id: ID!): Issue @isAuthenticated
     issues: [Issue] @isAuthenticated
+    createdByIssues(id: ID!): [Issue] @isAuthenticated
+    createdByMeIssues: [Issue] @isAuthenticated
   }
 
   extend type Mutation {
@@ -23,9 +25,10 @@ const typeDefs = gql`
     assignee: [User]
     description: String!
     labels: [String]
-    column: String,
+    column: String!,
     dashboard: String,
-    createdBy: User!
+    createdById: User!,
+    createdBy: User!,
     created: DateTime!
   }
 `
