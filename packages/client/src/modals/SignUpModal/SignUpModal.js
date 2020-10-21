@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Layer, Text } from "grommet";
+import {Box, Button, Form, Layer, Text} from 'grommet';
 import { FormField, Heading, TextInput } from "grommet/index";
 import {useMutation, useReactiveVar} from '@apollo/client';
 import { signUpMutation } from "../../graphql/mutations/user";
@@ -7,10 +7,9 @@ import { Link } from "react-router-dom";
 import {isRegisteredVar} from '../../cache';
 
 export const SignUpModal = () => {
+  const [inputs, setInputs] = useState({});
+  const {email, password, confirmPassword} = inputs
   const [show, setShow] = useState();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [signUpHandle] = useMutation(signUpMutation);
   const isRegistered = useReactiveVar(isRegisteredVar)
 
@@ -42,11 +41,14 @@ export const SignUpModal = () => {
                 <strong>Sign Up</strong>
               </Heading>
               <Box gap="xsmall">
+                <Form>
                 <FormField name="email" label={<Text size="small">Email</Text>}>
                   <TextInput
                     name="email"
                     type="email"
-                    onChange={(event) => setEmail(event.target.value)}
+                    onChange={({ target }) =>
+                      setInputs((state) => ({ ...state, email: target.value }))
+                    }
                   />
                 </FormField>
                 <FormField
@@ -57,7 +59,9 @@ export const SignUpModal = () => {
                   <TextInput
                     name="password"
                     type="password"
-                    onChange={(event) => setPassword(event.target.value)}
+                    onChange={({ target }) =>
+                      setInputs((state) => ({ ...state, password: target.value }))
+                    }
                   />
                 </FormField>
                 <FormField
@@ -67,7 +71,9 @@ export const SignUpModal = () => {
                   <TextInput
                     name="Confirm password"
                     type="password"
-                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    onChange={({ target }) =>
+                      setInputs((state) => ({ ...state, confirmPassword: target.value }))
+                    }
                   />
                 </FormField>
                 <Box justify="center" direction="row" gap="medium">
@@ -78,6 +84,7 @@ export const SignUpModal = () => {
                     onClick={() => signUpUser()}
                   />
                 </Box>
+                </Form>
               </Box>
             </Box>
           ) : (

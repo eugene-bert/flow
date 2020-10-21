@@ -5,16 +5,16 @@ const columnSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  index: {
+  position: {
     type: Number,
-    required: false,
-  },
-  dashboard: {
-    type: String,
     required: false,
   },
   issues: {
     type: Array,
+    required: false,
+  },
+  dashboard: {
+    type: String,
     required: false,
   },
   createdById: {

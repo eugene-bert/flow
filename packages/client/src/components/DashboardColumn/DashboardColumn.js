@@ -5,10 +5,20 @@ import { IssueListComponent } from "../IssueListComponent/IssueListComponent";
 import {Text} from 'grommet';
 import {FormNext} from 'grommet-icons';
 import {deviceSizeVar} from '../../cache';
+import {useQuery} from '@apollo/client';
+import {dashboardQuery} from '../../graphql/queries/dashboard';
+import {columnQuery} from '../../graphql/queries/column';
 
 export const DashboardColumn = (props) => {
+  const {data, loading, error} = useQuery(columnQuery, {variables: {id: props.columnId}})
 
-  return (
+  if (data) {
+    console.log(data)
+  }
+
+  console.log(props.columnId)
+
+  return data ? (
     <Box
       direction="column"
       border={{ color: "brand", size: "medium" }}
@@ -19,11 +29,11 @@ export const DashboardColumn = (props) => {
       responsive={false}
     >
       <Heading level="3" margin="small" textAlign="center">
-        {props.columnName}
+        {data.column.title}
       </Heading>
-      <IssueListComponent columnName={props.columnName} />
+      {/*<IssueListComponent columnName={props.columnName} />*/}
       <Box margin="small">
-        <ColumnAddIssueModal columnName={props.columnName} />
+        <ColumnAddIssueModal columnName={data.column.title} />
       </Box>
         {deviceSizeVar() === "small" ? (
           <Box flex align="center" justify="center" width="medium" direction="row">
@@ -31,5 +41,5 @@ export const DashboardColumn = (props) => {
             <FormNext color='brand' size="large"/></Box>
         ) : null }
     </Box>
-  );
+  ) : null;
 };

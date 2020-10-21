@@ -1,23 +1,31 @@
 const Column = require("../../../models/column");
+const Dashboard = require("../../../models/dashboard");
 
 const createColumn = async (
   _,
-  { title, index, dashboard, issues },
+  { id, title, position, dashboard, issues },
   { user }
 ) => {
   const userId = user._id.toString();
 
   const newColumn = new Column({
     title,
-    index,
+    position,
     dashboard,
     issues,
     createdById: userId,
   });
 
-  await newColumn.populate("createdById").execPopulate();
+  const newDashboard = Dashboard.findByIdAndUpdate(
+    { _id: dashboard },
+    {$push: {columns: newColumn._id}},
+    { new: true }
+    )
 
-  return newColumn.save();
+  await newColumn.populate("createdById").execPopulate()
+
+
+  return newColumn.save() && newDashboard;
 };
 
 module.exports = createColumn;

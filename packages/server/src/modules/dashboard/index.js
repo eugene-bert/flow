@@ -3,12 +3,21 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   extend type Query {
     dashboard(id: ID!): Dashboard @isAuthenticated
+    createdByMeDashboards: [Dashboard] @isAuthenticated
   }
 
   extend type Mutation {
     createDashboard(
       title: String!
-      team: String
+      users: [String]
+      columns: [String]
+      issues: [String]
+    ): Dashboard
+
+    updateDashboard(
+      id: ID!
+      title: String
+      users: [String]
       columns: [String]
       issues: [String]
     ): Dashboard
@@ -17,8 +26,8 @@ const typeDefs = gql`
   type Dashboard {
     id: ID!
     title: String!
-    team: String
     columns: [String]
+    users: [String]
     issues: [String]
     createdById: User!
     created: DateTime!

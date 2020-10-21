@@ -5,8 +5,8 @@ const dashboardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  team: {
-    type: String,
+  users: {
+    type: Array,
     required: false,
   },
   columns: {

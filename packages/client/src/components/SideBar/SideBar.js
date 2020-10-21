@@ -27,7 +27,7 @@ export const SideBar = (props) => {
                 <Link to="/profile" onClick={() => isSideBarOpenVar(false)}>
                   <Button>My profile</Button>
                 </Link>
-                <Link to="/dashboard" onClick={() => isSideBarOpenVar(false)}>
+                <Link to="/dashboards" onClick={() => isSideBarOpenVar(false)}>
                   <Button>Dashboard</Button>
                 </Link>
                 <Button
@@ -69,7 +69,7 @@ export const SideBar = (props) => {
                 <Link to="/profile" onClick={() => isSideBarOpenVar(false)}>
                   <Button>My profile</Button>
                 </Link>
-                <Link to="/dashboard" onClick={() => isSideBarOpenVar(false)}>
+                <Link to="/dashboards" onClick={() => isSideBarOpenVar(false)}>
                   <Button>Dashboard</Button>
                 </Link>
                 <Button

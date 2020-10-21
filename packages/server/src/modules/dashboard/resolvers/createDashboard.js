@@ -1,13 +1,13 @@
 const Dashboard = require('../../../models/dashboard')
 
 const createDashboard = async (_, {
-  title, team, columns, issues
+  title, users, columns, issues
 }, { user }) => {
   const userId = user._id.toString()
 
   const newDashboard = new Dashboard({
     title,
-    team,
+    users,
     columns,
     issues,
     createdById: userId,

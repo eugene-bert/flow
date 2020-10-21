@@ -1,5 +1,5 @@
 const { ApolloError } = require("apollo-server-express");
-const Column = require("../../../models/issue");
+const Column = require("../../../models/column");
 
 const column = async (_, args) => {
   const { id } = args;

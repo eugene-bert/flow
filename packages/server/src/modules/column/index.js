@@ -8,7 +8,7 @@ const typeDefs = gql`
   extend type Mutation {
     createColumn(
       title: String!
-      index: Int
+      position: Int
       dashboard: String
       issues: [String]
     ): Column
@@ -17,7 +17,7 @@ const typeDefs = gql`
   type Column {
     id: ID!
     title: String!
-    index: Int
+    position: Int
     dashboard: String
     createdById: User!
     created: DateTime!
