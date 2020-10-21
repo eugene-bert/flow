@@ -1,19 +1,19 @@
 const mongoose = require("mongoose");
 
-const issueSchema = new mongoose.Schema({
+const dashboardSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
   },
-  assignee: {
+  team: {
+    type: String,
+    required: false,
+  },
+  columns: {
     type: Array,
     required: false,
   },
-  description: {
-    type: String,
-    required: true,
-  },
-  labels: {
+  issues: {
     type: Array,
     required: false,
   },
@@ -21,18 +21,6 @@ const issueSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
-  },
-  column: {
-    type: String,
-    required: false,
-  },
-  dashboard: {
-    type: String,
-    required: false,
-  },
-  team: {
-    type: String,
-    required: false,
   },
   created: {
     type: Date,
@@ -44,6 +32,6 @@ const issueSchema = new mongoose.Schema({
   },
 });
 
-const Issue = mongoose.model("Issue", issueSchema);
+const Dashboard = mongoose.model("Dashboard", dashboardSchema);
 
-module.exports = Issue;
+module.exports = Dashboard;

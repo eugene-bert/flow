@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express')
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   extend type Query {
@@ -12,19 +12,19 @@ const typeDefs = gql`
     createIssue(
       title: String!
       description: String!
-      column: String,
-      dashboard: String,
-      labels: [String],
+      column: String
+      dashboard: String
+      labels: [String]
       assignee: [String]
     ): Issue
 
     updateIssue(
-      id: ID!,
-      title: String,
-      description: String,
-      column: String,
-      dashboard: String,
-      labels: [String],
+      id: ID!
+      title: String
+      description: String
+      column: String
+      dashboard: String
+      labels: [String]
       assignee: [String]
     ): Issue
   }
@@ -35,18 +35,16 @@ const typeDefs = gql`
     assignee: [User]
     description: String!
     labels: [String]
-    column: String!,
-    dashboard: String,
-    createdById: User!,
+    column: String!
+    dashboard: String
+    createdById: User!
     created: DateTime!
   }
-`
+`;
 
-const resolvers = require('./resolvers')
+const resolvers = require("./resolvers");
 
 module.exports = {
-  typeDefs: [
-    typeDefs
-  ],
-  resolvers
-}
+  typeDefs: [typeDefs],
+  resolvers,
+};

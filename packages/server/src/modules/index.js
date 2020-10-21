@@ -1,11 +1,11 @@
-const { makeExecutableSchemaFromModules } = require('../utils/modules')
+const { makeExecutableSchemaFromModules } = require("../utils/modules");
 
-const auth = require('./auth')
-const issues = require('./issues')
+const user = require("./user");
+const issue = require("./issue");
+const column = require("./column");
+const team = require("./team");
+const dashboard = require("./dashboard");
 
 module.exports = makeExecutableSchemaFromModules({
-  modules: [
-    auth,
-    issues
-  ]
-})
+  modules: [user, issue, column, team, dashboard],
+});

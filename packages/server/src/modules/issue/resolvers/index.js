@@ -1,6 +1,6 @@
 const issue = require('./issue')
 const issues = require('./issues')
-const createIssue = require('./create-issue')
+const createIssue = require('./createIssue')
 const createdByMeIssues = require('./createdByMeIssues');
 const createdByIssues = require('./createdByIssues');
 const updateIssue = require('./updateIssue');
@@ -10,12 +10,12 @@ const resolvers = {
     issue,
     issues,
     createdByIssues,
-    createdByMeIssues
+    createdByMeIssues,
   },
   Mutation: {
     createIssue,
-    updateIssue
-  }
-}
+    updateIssue,
+  },
+};
 
 module.exports = resolvers

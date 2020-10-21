@@ -1,0 +1,32 @@
+const { gql } = require("apollo-server-express");
+
+const typeDefs = gql`
+  extend type Query {
+    column(id: ID!): Column @isAuthenticated
+  }
+
+  extend type Mutation {
+    createColumn(
+      title: String!
+      index: Int
+      dashboard: String
+      issues: [String]
+    ): Column
+  }
+
+  type Column {
+    id: ID!
+    title: String!
+    index: Int
+    dashboard: String
+    createdById: User!
+    created: DateTime!
+  }
+`;
+
+const resolvers = require("./resolvers");
+
+module.exports = {
+  typeDefs: [typeDefs],
+  resolvers,
+};

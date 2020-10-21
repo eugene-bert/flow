@@ -1,19 +1,15 @@
 const mongoose = require("mongoose");
 
-const issueSchema = new mongoose.Schema({
+const teamSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
   },
-  assignee: {
+  users: {
     type: Array,
     required: false,
   },
-  description: {
-    type: String,
-    required: true,
-  },
-  labels: {
+  issues: {
     type: Array,
     required: false,
   },
@@ -21,18 +17,6 @@ const issueSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
-  },
-  column: {
-    type: String,
-    required: false,
-  },
-  dashboard: {
-    type: String,
-    required: false,
-  },
-  team: {
-    type: String,
-    required: false,
   },
   created: {
     type: Date,
@@ -44,6 +28,6 @@ const issueSchema = new mongoose.Schema({
   },
 });
 
-const Issue = mongoose.model("Issue", issueSchema);
+const Team = mongoose.model("Team", teamSchema);
 
-module.exports = Issue;
+module.exports = Team;
