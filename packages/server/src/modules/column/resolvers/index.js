@@ -1,5 +1,6 @@
 const createColumn = require("./createColumn");
 const column = require("./column");
+const deleteColumn = require('./deleteColumn');
 
 const resolvers = {
   Query: {
@@ -7,6 +8,7 @@ const resolvers = {
   },
   Mutation: {
     createColumn,
+    deleteColumn
   },
 };
 

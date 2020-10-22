@@ -5,7 +5,8 @@ const meQuery = gql`
         me{
             email,
             firstName,
-            lastName
+            lastName,
+            dashboards
         }
     }
 `;

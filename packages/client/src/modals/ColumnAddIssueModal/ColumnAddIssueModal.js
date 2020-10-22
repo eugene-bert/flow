@@ -1,17 +1,27 @@
-import React, { useState } from "react";
+import React, {Fragment, useState} from 'react';
 import { Box, Button, Layer, Text } from "grommet";
 import { Form, FormField, Heading, TextArea, TextInput } from "grommet/index";
 import { AddCircle } from 'grommet-icons';
+import {useMutation} from '@apollo/client';
+import {createIssueInColumn} from '../../graphql/mutations/issue';
 
 export const ColumnAddIssueModal = (props) => {
   const [inputs, setInputs] = useState({});
-  const [show, setShow] = useState();
+  const [show, setShow] = useState(false);
+  const [create] = useMutation(createIssueInColumn);
+
+  const submitHandle = () => {
+    let {title, description} = inputs
+    create({ variables: { column: props.columnId, dashboard: props.dahsboard, title, description} }).then((data) => {
+      console.log(data)
+    });
+  };
+
+
 
   return (
-    <Box>
-      <Box flex align="center" justify="center">
+    <Fragment>
         <AddCircle onClick={() => setShow(true)} />
-      </Box>
       {show && (
         <Layer
           onEsc={() => setShow(false)}
@@ -25,7 +35,7 @@ export const ColumnAddIssueModal = (props) => {
                 <strong>Add new issue to {props.columnName}</strong>
               </Heading>
               <Box gap="xsmall">
-                <Form onSubmit={(data) => console.log(inputs)}>
+                <Form onSubmit={(data) => submitHandle()}>
                   <FormField
                     name="title"
                     label={<Text size="small">Title</Text>}
@@ -37,21 +47,6 @@ export const ColumnAddIssueModal = (props) => {
                         setInputs((state) => ({
                           ...state,
                           title: target.value,
-                        }))
-                      }
-                    />
-                  </FormField>
-                  <FormField
-                    name="assignee"
-                    label={<Text size="small">Assignee</Text>}
-                  >
-                    <TextInput
-                      name="assignee"
-                      type="assignee"
-                      onChange={({ target }) =>
-                        setInputs((state) => ({
-                          ...state,
-                          assignee: target.value,
                         }))
                       }
                     />
@@ -81,6 +76,6 @@ export const ColumnAddIssueModal = (props) => {
           </Box>
         </Layer>
       )}
-    </Box>
+    </Fragment>
   );
 };

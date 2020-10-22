@@ -21,6 +21,10 @@ const typeDefs = gql`
       columns: [String]
       issues: [String]
     ): Dashboard
+
+    deleteDashboard(
+      id: ID!
+    ): Dashboard
   }
 
   type Dashboard {

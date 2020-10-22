@@ -15,9 +15,7 @@ const MainDecorator = (props) => {
   const loggedIn = useReactiveVar(isLoggedInVar)
   const deviceSize = useReactiveVar(deviceSizeVar)
 
-  useEffect(() => {
-    deviceSizeVar(props.deviceSize);
-  }, [props.deviceSize]);
+  deviceSizeVar(props.deviceSize);
 
   return (
     <Fragment>

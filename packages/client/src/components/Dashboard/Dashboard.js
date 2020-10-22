@@ -1,34 +1,52 @@
-import { Box  } from "grommet/index";
-import React from 'react';
-import {createdByMeQuery, issueQuery} from '../../graphql/queries/issue';
-import {DashboardColumn} from '../DashboardColumn/DashboardColumn';
-import {useQuery} from '@apollo/client';
+import React, { Fragment } from "react";
+import { useQuery } from "@apollo/client";
+import { columnQuery } from "../../graphql/queries/column";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { ColumnAddIssueModal } from "../../modals/ColumnAddIssueModal/ColumnAddIssueModal";
+import { oneIssueQuery } from "../../graphql/queries/issue";
 import {dashboardQuery} from '../../graphql/queries/dashboard';
+import {Box} from 'grommet/index';
 import ColumnCreate from '../ColumnCreate/ColumnCreate';
+import DashboardDelete from '../DashboardDelete/DashboardDelete';
+import ColumnDelete from '../ColumnDelete/ColumnDelete';
+import styled from 'styled-components';
+import {DashboardColumn} from '../DashboardColumn/DashboardColumn';
+
+const Container = styled.div`
+  display: flex;
+`;
+
 
 export const Dashboard = (props) => {
   const {data, loading, error} = useQuery(dashboardQuery, {variables: {id: props.dashboardId}})
 
+  const onDragEnd = result => {
+    const { source, destination, draggableId } = result;
 
-  return data ? (
-      <Box direction="column" basis="full">
-        <Box pad="medium">
-          <ColumnCreate dashboardId={props.dashboardId}/>
-        </Box>
-        <Box direction="row" overflow="auto" basis="full">
+
+    // dropped outside the list
+    if (!destination) {
+      return;
+    }
+
+    console.log(draggableId, source, destination)
+
+
+  }
+
+  return data ?  (
+    <Fragment>
+      <Fragment>
+        <ColumnCreate dashboardId={props.dashboardId}/>
+        <DashboardDelete dashboardId={props.dashboardId}/>
+      </Fragment>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Container>
           {data.dashboard.columns.map((el, index) => {
             return <DashboardColumn key={index} columnId={el}/>
           })}
-          {/*TODO: implement column sorting functionality*/}
-          {/*<DashboardColumn columnName={'Todo'}/>*/}
-          {/*<DashboardColumn columnName={'In progress'}/>*/}
-          {/*<DashboardColumn columnName={'Done'}/>*/}
-          {/*{removeDuplicates(data.createdByMeIssues.map(el => el.column)).map((el, index) => {*/}
-          {/*  if (!mainColumnsArray.includes(el) && el !==null) {*/}
-          {/*    return <DashboardColumn key={index + 1} columnName={el}/>*/}
-          {/*  }*/}
-          {/*})}*/}
-        </Box>
-      </Box>
-  ) : null ;
+        </Container>
+      </DragDropContext>
+    </Fragment>
+  ) : null  ;
 };

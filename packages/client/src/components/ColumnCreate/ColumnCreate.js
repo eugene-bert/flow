@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {Box, Text} from 'grommet';
 import {Button, Form, FormField, Heading, Layer, TextInput} from 'grommet/index';
 import {useMutation} from '@apollo/client';
@@ -20,11 +20,7 @@ const ColumnCreate = (props) => {
 
 
   return (
-    <Box
-      align="center"
-      justify="center"
-      round="xsmall"
-    >
+    <Fragment>
       <Button label="Create new column" onClick={() => setShow(true)}/>
       {show && (
         <Layer
@@ -64,7 +60,7 @@ const ColumnCreate = (props) => {
           </Box>
         </Layer>
       )}
-    </Box>
+    </Fragment>
   );
 };
 

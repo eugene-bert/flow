@@ -20,4 +20,13 @@ const updateDashboard = gql`
     }
 `;
 
-export { createDashboard, updateDashboard };
+const deleteDashboard = gql`
+    mutation($id: ID!){
+        deleteDashboard(id: $id) {
+            id
+            title
+        }
+    }
+`;
+
+export { createDashboard, updateDashboard, deleteDashboard };

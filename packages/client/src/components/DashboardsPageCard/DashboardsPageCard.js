@@ -1,11 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Box, Text } from "grommet";
+import {useQuery} from '@apollo/client';
+import {dashboardQuery} from '../../graphql/queries/dashboard';
 
 export const DashboardsPageCard = (props) => {
   const history = useHistory();
+  const {data, loading, error} = useQuery(dashboardQuery, {variables: {id: props.dashboardId}})
 
-  return (
+  return data ? (
     <Box
       align="center"
       justify="center"
@@ -14,12 +17,10 @@ export const DashboardsPageCard = (props) => {
       height="small"
       border={{ color: "brand" }}
       onClick={() => {
-        console.log(props)
-        console.log(history)
-        history.push(`/dashboard/${props.dashboard.id}`)
+        history.push(`/dashboard/${props.dashboardId}`)
       }}
     >
-      <Text>{props.dashboard.title}</Text>
+      <Text>{data.dashboard.title}</Text>
     </Box>
-  );
+  ) : null;
 };

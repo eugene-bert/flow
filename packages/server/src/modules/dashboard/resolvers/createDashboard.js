@@ -1,4 +1,5 @@
 const Dashboard = require('../../../models/dashboard')
+const User = require('../../../models/user')
 
 const createDashboard = async (_, {
   title, users, columns, issues
@@ -7,11 +8,17 @@ const createDashboard = async (_, {
 
   const newDashboard = new Dashboard({
     title,
-    users,
+    users: [userId],
     columns,
     issues,
     createdById: userId,
   });
+
+  await User.findOneAndUpdate(
+    { _id: userId },
+    { $push: { dashboards: newDashboard.id } },
+    { new: true }
+  );
 
   await newDashboard
     .populate('createdById')

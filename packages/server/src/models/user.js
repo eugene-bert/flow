@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  dashboards: {
+    type: Array,
+    required: false,
+  },
   created: {
     type: Date,
     default: Date.now,

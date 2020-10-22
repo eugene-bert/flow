@@ -24,4 +24,20 @@ const updateIssue = gql`
     }
 `;
 
-export { createIssue, updateIssue };
+const createIssueInColumn = gql`
+    mutation($column: String!, $title: String!, $description: String!, $labels: [String] ,$assignee: String, $dashboard: String!) {
+        createIssueInColumn(column: $column, title: $title, description: $description, labels: $labels, assignee: $assignee, dashboard: $dashboard) {
+            title,
+            description,
+            labels
+            labels
+            dashboard
+            assignee {
+                firstName,
+                lastName
+            }
+        }
+    }
+`;
+
+export { createIssue, updateIssue, createIssueInColumn };

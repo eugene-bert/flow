@@ -30,10 +30,6 @@ const issueSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  team: {
-    type: String,
-    required: false,
-  },
   created: {
     type: Date,
     default: Date.now,

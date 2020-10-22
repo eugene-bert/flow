@@ -14,6 +14,7 @@ const dashboardsQuery = gql`
 const dashboardQuery = gql`
   query($id: ID!) {
     dashboard(id: $id) {
+      id  
       title
       users
       issues

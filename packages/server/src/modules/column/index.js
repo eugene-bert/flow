@@ -12,12 +12,17 @@ const typeDefs = gql`
       dashboard: String
       issues: [String]
     ): Column
+
+    deleteColumn(
+      id: ID!
+    ): Column
   }
 
   type Column {
     id: ID!
     title: String!
     position: Int
+    issues: [String]
     dashboard: String
     createdById: User!
     created: DateTime!

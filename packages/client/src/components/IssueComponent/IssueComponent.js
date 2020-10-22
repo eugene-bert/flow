@@ -4,39 +4,42 @@ import { Button, Form, Heading } from "grommet/index";
 import {useMutation, useQuery, useReactiveVar} from '@apollo/client';
 import { updateIssue } from "../../graphql/mutations/issue";
 import {deviceSizeVar} from '../../cache';
+import {oneIssueQuery} from '../../graphql/queries/issue';
 
 export const IssueComponent = (props) => {
   const [show, setShow] = useState();
   const [update] = useMutation(updateIssue);
-  const id = props.id;
+  const id = props.issueId;
+  const {data, loading, error} = useQuery(oneIssueQuery, {variables: {id}})
+
+  const submitHandle = () => {
+    let title = document.getElementsByClassName("issueEditHeading")[0]
+        .innerHTML,
+      description = document.getElementsByClassName("issueEditDescription")[0]
+        .innerHTML;
+    update({ variables: { id, title, description } }).then((data) => {
+      console.log(data);
+    });
+  };
 
 
   useEffect(() => {
     deviceSizeVar(props.deviceSize);
   }, [props.title, props.description]);
 
-  const submitHandle = () => {
-    let title = document.getElementsByClassName("issueEditHeading")[0]
-      .innerHTML,
-    description = document.getElementsByClassName("issueEditDescription")[0]
-      .innerHTML;
-    update({ variables: { id, title, description } }).then((data) => {
-      console.log(data);
-    });
-  };
-
-  return (
+  return data ? (
     <Box
       pad="small"
       margin="small"
       width="medium"
+      height={{min: "xsmall"}}
       border={{ color: "brand", size: "small" }}
       onClick={() => {
         setShow(true);
       }}
     >
       <Heading textAlign="center" level={5} margin="none">
-        {props.title}
+        {data.issue.title}
       </Heading>
       {show ? (
         <Layer
@@ -55,7 +58,7 @@ export const IssueComponent = (props) => {
                   suppressContentEditableWarning={true}
                   className="issueEditHeading"
                 >
-                  {props.title}
+                  {data.issue.title}
                 </strong>
               </Heading>
               <Box gap="xsmall">
@@ -64,7 +67,7 @@ export const IssueComponent = (props) => {
                   suppressContentEditableWarning={true}
                   className="issueEditDescription"
                 >
-                  {props.description}
+                  {data.issue.description}
                 </p>
               </Box>
               <Box justify="center" direction="row" gap="medium">
@@ -79,5 +82,5 @@ export const IssueComponent = (props) => {
         </Layer>
       ) : null}
     </Box>
-  );
+  ) : null;
 };

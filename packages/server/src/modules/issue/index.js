@@ -15,7 +15,7 @@ const typeDefs = gql`
       column: String
       dashboard: String
       labels: [String]
-      assignee: [String]
+      assignee: String
     ): Issue
 
     updateIssue(
@@ -25,14 +25,23 @@ const typeDefs = gql`
       column: String
       dashboard: String
       labels: [String]
-      assignee: [String]
+      assignee: String
+    ): Issue
+
+    createIssueInColumn(
+      column: String!
+      title: String!
+      description: String
+      dashboard: String
+      labels: [String]
+      assignee: String
     ): Issue
   }
 
   type Issue {
     id: ID!
     title: String!
-    assignee: [User]
+    assignee: User
     description: String!
     labels: [String]
     column: String!

@@ -1,45 +1,50 @@
-import React from "react";
-import { Box, Heading } from "grommet/index";
-import { ColumnAddIssueModal } from "../../modals/ColumnAddIssueModal/ColumnAddIssueModal";
-import { IssueListComponent } from "../IssueListComponent/IssueListComponent";
-import {Text} from 'grommet';
-import {FormNext} from 'grommet-icons';
-import {deviceSizeVar} from '../../cache';
 import {useQuery} from '@apollo/client';
-import {dashboardQuery} from '../../graphql/queries/dashboard';
 import {columnQuery} from '../../graphql/queries/column';
+import React, {Fragment} from 'react';
+import {Droppable} from 'react-beautiful-dnd';
+import {ColumnAddIssueModal} from '../../modals/ColumnAddIssueModal/ColumnAddIssueModal';
+import ColumnDelete from '../ColumnDelete/ColumnDelete';
+import {DashboardIssue} from '../DashboardIssue/DashboardIssue';
+import styled from 'styled-components';
+
+
+const Container = styled.div`
+   min-width: 280px;
+   margin: 8px;
+   border: 1px solid lightgrey;
+   border-radius: 2px;
+`;
+const Title = styled.h3`
+   padding: 8px;
+`;
+const TaskList = styled.div`
+   padding: 8px;
+`;
 
 export const DashboardColumn = (props) => {
-  const {data, loading, error} = useQuery(columnQuery, {variables: {id: props.columnId}})
-
-  if (data) {
-    console.log(data)
-  }
-
-  console.log(props.columnId)
+  const { data, loading, error } = useQuery(columnQuery, {
+    variables: { id: props.columnId },
+  });
 
   return data ? (
-    <Box
-      direction="column"
-      border={{ color: "brand", size: "medium" }}
-      basis="medium"
-      width={("medium", { min: "medium" })}
-      pad="small"
-      margin={{ right: "small" }}
-      responsive={false}
-    >
-      <Heading level="3" margin="small" textAlign="center">
-        {data.column.title}
-      </Heading>
-      {/*<IssueListComponent columnName={props.columnName} />*/}
-      <Box margin="small">
-        <ColumnAddIssueModal columnName={data.column.title} />
-      </Box>
-        {deviceSizeVar() === "small" ? (
-          <Box flex align="center" justify="center" width="medium" direction="row">
-            <Text color='brand' weight="bold" size="large"> Swipe</Text>
-            <FormNext color='brand' size="large"/></Box>
-        ) : null }
-    </Box>
-  ) : null;
+    <Fragment>
+      <Droppable droppableId={props.columnId}>
+        {(provided, snapshot) => (
+          <Container
+            ref={provided.innerRef}
+          >
+            <Title>{data.column.title}</Title>
+            <TaskList>
+              {data.column.issues.map((el,index) => {
+                return <DashboardIssue issueId={el} key={index} index={index}/>
+              })}
+            </TaskList>
+            <ColumnAddIssueModal columnId={props.columnId} columnName={data.column.title} dahsboard={data.column.dashboard}/>
+            <ColumnDelete/>
+            {provided.placeholder}
+          </Container>
+        )}
+      </Droppable>
+    </Fragment>
+  ) : null
 };

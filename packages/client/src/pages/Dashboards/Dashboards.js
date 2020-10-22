@@ -5,10 +5,11 @@ import { dashboardsQuery } from "../../graphql/queries/dashboard";
 import { DashboardsPageCard } from "../../components/DashboardsPageCard/DashboardsPageCard";
 import  DashboardsPageCardCreate   from "../../components/DashboardsPageCardCreate/DashboardsPageCardCreate";
 import {withApollo} from '@apollo/client/react/hoc';
+import {meQuery} from '../../graphql/queries/user';
 
 
 export const Dashboards = () => {
-  const { data, loading, error } = useQuery(dashboardsQuery);
+  const { data, loading, error } = useQuery(meQuery);
   // TODO: find smth instead of pollInterval: 500
 
   return data ? (
@@ -17,8 +18,8 @@ export const Dashboards = () => {
         <Main pad="medium">
           <DashboardsPageCardCreate />
           <Grid columns="small" rows="small" gap="medium" fill="horizontal">
-            {data.createdByMeDashboards.map((dashboard, index) => {
-              return <DashboardsPageCard key={index} dashboard={dashboard}/>;
+            {data.me.dashboards.map((dashboard, index) => {
+              return <DashboardsPageCard key={index} dashboardId={dashboard}/>;
             })}
           </Grid>
         </Main>
