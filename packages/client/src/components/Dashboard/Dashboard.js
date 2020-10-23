@@ -8,10 +8,17 @@ import styled from 'styled-components';
 import {DashboardColumn} from '../DashboardColumn/DashboardColumn';
 import {dashboardColumnIssuesVar} from '../../cache';
 import { updateColumn } from "../../graphql/mutations/column";
+import DashboardUsers from '../DashboardUsers/DashboardUsers';
 
 const Container = styled.div`
   display: flex;
 `;
+
+const DashboardBar = styled.div`
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+`
 
 
 export const Dashboard = (props) => {
@@ -88,8 +95,11 @@ export const Dashboard = (props) => {
   return data ?  (
     <Fragment>
       <Fragment>
-        <ColumnCreate refetch={refetch}  dashboardId={props.dashboardId}/>
-        <DashboardDelete refetch={refetch} dashboardId={props.dashboardId}/>
+        <DashboardBar>
+          <ColumnCreate refetch={refetch}  dashboardId={props.dashboardId}/>
+          <DashboardDelete refetch={refetch} dashboardId={props.dashboardId}/>
+          <DashboardUsers dashboardId={props.dashboardId} users={data.dashboard.users}/>
+        </DashboardBar>
       </Fragment>
       <DragDropContext onDragEnd={onDragEnd}>
         <Container>

@@ -3,6 +3,8 @@ const dashboard = require("./dashboard");
 const createdByMeDashboards = require('./createdByMeDashboards');
 const updateDashboard = require('./updateDashboard');
 const deleteDashboard = require('./deleteDashboard');
+const shareDashboard = require('./shareDashboard');
+const unShareDashboard = require('./unShareDashboard');
 
 const resolvers = {
   Query: {
@@ -12,7 +14,9 @@ const resolvers = {
   Mutation: {
     createDashboard,
     updateDashboard,
-    deleteDashboard
+    deleteDashboard,
+    shareDashboard,
+    unShareDashboard
   },
 };
 

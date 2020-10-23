@@ -19,6 +19,9 @@ export const cache = new InMemoryCache({
         dashboardColumnIssues() {
           return dashboardColumnIssuesVar();
         },
+        myEmail() {
+          return myEmailVar();
+        },
       }
     }
   },
@@ -29,3 +32,4 @@ export const isLoggedInVar = makeVar(!!localStorage.getItem('token'))
 export const isRegisteredVar =  makeVar(false)
 export const deviceSizeVar = makeVar('')
 export const dashboardColumnIssuesVar = makeVar([])
+export const myEmailVar = makeVar('')

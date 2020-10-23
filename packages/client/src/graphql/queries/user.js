@@ -11,4 +11,15 @@ const meQuery = gql`
     }
 `;
 
-export { meQuery };
+const searchUserById = gql`
+    query($id: String!) {
+        searchUserById(id: $id){
+            email,
+            firstName,
+            lastName,
+            dashboards
+        }
+    }
+`;
+
+export { meQuery, searchUserById };

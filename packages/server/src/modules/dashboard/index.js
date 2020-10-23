@@ -25,6 +25,16 @@ const typeDefs = gql`
     deleteDashboard(
       id: ID!
     ): Dashboard
+
+    shareDashboard(
+      email: String!,
+      dashboardId: String!,
+    ): Dashboard
+
+    unShareDashboard(
+      email: String!,
+      dashboardId: String!,
+    ): Dashboard
   }
 
   type Dashboard {
