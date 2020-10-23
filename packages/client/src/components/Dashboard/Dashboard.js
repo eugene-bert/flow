@@ -15,7 +15,7 @@ const Container = styled.div`
 
 
 export const Dashboard = (props) => {
-  const {data, loading, error} = useQuery(dashboardQuery, {variables: {id: props.dashboardId}})
+  const {data, loading, error, refetch} = useQuery(dashboardQuery, {variables: {id: props.dashboardId}})
   const dashboardData = useReactiveVar(dashboardColumnIssuesVar)
   const [update] = useMutation(updateColumn);
 
@@ -85,12 +85,11 @@ export const Dashboard = (props) => {
 
     }
   }
-
   return data ?  (
     <Fragment>
       <Fragment>
-        <ColumnCreate dashboardId={props.dashboardId}/>
-        <DashboardDelete dashboardId={props.dashboardId}/>
+        <ColumnCreate refetch={refetch}  dashboardId={props.dashboardId}/>
+        <DashboardDelete refetch={refetch} dashboardId={props.dashboardId}/>
       </Fragment>
       <DragDropContext onDragEnd={onDragEnd}>
         <Container>

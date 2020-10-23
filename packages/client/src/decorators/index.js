@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Box, Grommet, ResponsiveContext } from "grommet/index";
 import { theme } from "./styles";
 import { TopBar } from "../components/TopBar/TopBar";
-import {FooterComponent} from '../components/FooterComponent/FooterComponent';
+import { FooterComponent } from "../components/FooterComponent/FooterComponent";
 
 const AppRoot = () => {
   return (
@@ -15,7 +15,7 @@ const AppRoot = () => {
             <Box fill>
               <TopBar />
               <MainDecorator deviceSize={size} />
-              <FooterComponent/>
+              <FooterComponent />
             </Box>
           )}
         </ResponsiveContext.Consumer>

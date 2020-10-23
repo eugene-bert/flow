@@ -6,8 +6,7 @@ import {
   Form,
   FormField,
   Heading,
-  Layer,
-  TextInput,
+  Layer
 } from "grommet/index";
 import { useMutation } from "@apollo/client";
 import { deleteDashboard } from "../../graphql/mutations/dashboard";

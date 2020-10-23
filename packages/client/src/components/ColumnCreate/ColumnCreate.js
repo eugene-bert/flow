@@ -10,11 +10,9 @@ const ColumnCreate = (props) => {
   const [create] = useMutation(createColumn);
 
   const submitHandle = () => {
-    let title = inputs.title,
-      id = props.dashboardId
-
-    create({ variables: { title, dashboard: id} }).then((data) => {
-      console.log(data)
+    create({ variables: { title: inputs.title, dashboard: props.dashboardId} }).then((data) => {
+      props.refetch()
+      setShow(false)
     });
   };
 

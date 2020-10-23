@@ -17,7 +17,7 @@ export const IssueComponent = (props) => {
         .innerHTML,
       description = document.getElementsByClassName("issueEditDescription")[0]
         .innerHTML;
-    update({ variables: { id, title, description } }).then((data) => {
+    update({ variables: { id, title, description }}).then((data) => {
       console.log(data);
     });
   };

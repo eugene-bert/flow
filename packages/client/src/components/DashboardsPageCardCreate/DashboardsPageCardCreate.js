@@ -5,15 +5,16 @@ import {Link} from 'react-router-dom';
 import {useMutation} from '@apollo/client';
 import {createDashboard, updateDashboard} from '../../graphql/mutations/dashboard';
 
-const DashboardsPageCardCreate = () => {
+const DashboardsPageCardCreate = (props) => {
   const [inputs, setInputs] = useState({});
   const [show, setShow] = useState(false);
   const [create] = useMutation(createDashboard);
 
   const submitHandle = () => {
     let title = inputs.title
-    create({ variables: { title } }).then((data) => {
-      console.log(data);
+    create({ variables: { title }}).then((data) => {
+      props.refetch()
+      setShow(false)
     });
   };
 

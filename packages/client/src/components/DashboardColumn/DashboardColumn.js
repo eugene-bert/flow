@@ -23,15 +23,15 @@ const TaskList = styled.div`
 `;
 
 export const DashboardColumn = (props) => {
-  const { data, loading, error } = useQuery(columnQuery, {
-    variables: { id: props.columnId },
+  const { data, loading, error, refetch } = useQuery(columnQuery, {
+    variables: { id: props.columnId }
   });
   const issues = useReactiveVar(dashboardColumnIssuesVar)
 
   if (data) {
     let column = data.column.id,
-      columnIssues = data.column.issues
-    issues.push([column, columnIssues])
+        columnIssues = data.column.issues
+        issues.push([column, columnIssues])
   }
 
   return data ? (
@@ -47,7 +47,7 @@ export const DashboardColumn = (props) => {
                 return <DashboardIssue issueId={el} key={index} index={index}/>
               })}
             </TaskList>
-            <ColumnAddIssueModal columnId={props.columnId} columnName={data.column.title} dahsboard={data.column.dashboard}/>
+            <ColumnAddIssueModal refetch={refetch} columnId={props.columnId} columnName={data.column.title} dahsboard={data.column.dashboard}/>
             <ColumnDelete/>
             {provided.placeholder}
           </Container>

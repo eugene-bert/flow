@@ -7,7 +7,6 @@ import {
   FormField,
   Heading,
   Layer,
-  TextInput,
 } from "grommet/index";
 import { useMutation } from "@apollo/client";
 import {deleteColumn} from '../../graphql/mutations/column';

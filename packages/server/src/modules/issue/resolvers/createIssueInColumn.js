@@ -18,12 +18,7 @@ const createIssueInColumn = async (
     labels,
     createdById: userId,
   });
-
-  await Dashboard.findOneAndUpdate(
-    { _id: dashboard },
-    { $push: { issues: newIssue._id } },
-    { new: true }
-  );
+  
   await Column.findByIdAndUpdate(
     { _id: column },
     { $push: { issues: newIssue._id } },

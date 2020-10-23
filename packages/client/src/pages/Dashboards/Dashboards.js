@@ -9,17 +9,16 @@ import {meQuery} from '../../graphql/queries/user';
 
 
 export const Dashboards = () => {
-  const { data, loading, error } = useQuery(meQuery);
-  // TODO: find smth instead of pollInterval: 500
+  const { data, loading, error, refetch } = useQuery(meQuery);
 
   return data ? (
     <Fragment>
       <Box direction="row" overflow="auto" basis="full">
         <Main pad="medium">
-          <DashboardsPageCardCreate />
+          <DashboardsPageCardCreate refetch={refetch}/>
           <Grid columns="small" rows="small" gap="medium" fill="horizontal">
             {data.me.dashboards.map((dashboard, index) => {
-              return <DashboardsPageCard key={index} dashboardId={dashboard}/>;
+              return <DashboardsPageCard  key={index} dashboardId={dashboard}/>;
             })}
           </Grid>
         </Main>

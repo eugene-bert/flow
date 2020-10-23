@@ -4,6 +4,7 @@ import { Form, FormField, Heading, TextArea, TextInput } from "grommet/index";
 import { AddCircle } from 'grommet-icons';
 import {useMutation} from '@apollo/client';
 import {createIssueInColumn} from '../../graphql/mutations/issue';
+import {columnQuery} from '../../graphql/queries/column';
 
 export const ColumnAddIssueModal = (props) => {
   const [inputs, setInputs] = useState({});
@@ -12,8 +13,8 @@ export const ColumnAddIssueModal = (props) => {
 
   const submitHandle = () => {
     let {title, description} = inputs
-    create({ variables: { column: props.columnId, dashboard: props.dahsboard, title, description} }).then((data) => {
-      console.log(data)
+    create({ variables: { column: props.columnId, dashboard: props.dahsboard, title, description}}).then((data) => {
+      setShow(false)
     });
   };
 
