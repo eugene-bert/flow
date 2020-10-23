@@ -18,7 +18,7 @@ export const DashboardIssue = (props) => {
   });
 
   return data ? (
-    <Draggable draggableId={props.issueId} index={props.index}>
+    <Draggable draggableId={props.issueId} index={props.index} key={props.issueId}>
       {(provided, snapshot) => (
         <Container
           ref={provided.innerRef}

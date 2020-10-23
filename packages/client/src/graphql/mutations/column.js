@@ -19,4 +19,13 @@ const deleteColumn = gql`
     }
 `;
 
-export { createColumn, deleteColumn };
+const updateColumn = gql`
+    mutation($id: ID!, $issues: [String]){
+        updateColumn(id: $id, issues: $issues) {
+            id
+            issues
+        }
+    }
+`;
+
+export { createColumn, deleteColumn, updateColumn };

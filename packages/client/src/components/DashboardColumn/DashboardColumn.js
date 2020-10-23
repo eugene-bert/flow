@@ -1,11 +1,12 @@
-import {useQuery} from '@apollo/client';
+import {useQuery, useReactiveVar} from '@apollo/client';
 import {columnQuery} from '../../graphql/queries/column';
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import {Droppable} from 'react-beautiful-dnd';
 import {ColumnAddIssueModal} from '../../modals/ColumnAddIssueModal/ColumnAddIssueModal';
 import ColumnDelete from '../ColumnDelete/ColumnDelete';
 import {DashboardIssue} from '../DashboardIssue/DashboardIssue';
 import styled from 'styled-components';
+import {dashboardColumnIssuesVar} from '../../cache';
 
 
 const Container = styled.div`
@@ -25,6 +26,13 @@ export const DashboardColumn = (props) => {
   const { data, loading, error } = useQuery(columnQuery, {
     variables: { id: props.columnId },
   });
+  const issues = useReactiveVar(dashboardColumnIssuesVar)
+
+  if (data) {
+    let column = data.column.id,
+      columnIssues = data.column.issues
+    issues.push([column, columnIssues])
+  }
 
   return data ? (
     <Fragment>

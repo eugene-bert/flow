@@ -16,6 +16,11 @@ const typeDefs = gql`
     deleteColumn(
       id: ID!
     ): Column
+
+    updateColumn(
+      id: ID!
+      issues: [String]
+    ): Column
   }
 
   type Column {

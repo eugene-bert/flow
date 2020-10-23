@@ -15,13 +15,17 @@ export const cache = new InMemoryCache({
         },
         deviceSize(){
           return deviceSizeVar();
-        }
+        },
+        dashboardColumnIssues() {
+          return dashboardColumnIssuesVar();
+        },
       }
     }
-  }
+  },
 })
 
 export const isSideBarOpenVar = makeVar(false)
 export const isLoggedInVar = makeVar(!!localStorage.getItem('token'))
 export const isRegisteredVar =  makeVar(false)
 export const deviceSizeVar = makeVar('')
+export const dashboardColumnIssuesVar = makeVar([])
