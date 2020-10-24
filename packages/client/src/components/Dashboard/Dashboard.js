@@ -12,6 +12,7 @@ import DashboardUsers from '../DashboardUsers/DashboardUsers';
 
 const Container = styled.div`
   display: flex;
+  overflow: auto;
 `;
 
 const DashboardBar = styled.div`
