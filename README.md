@@ -18,6 +18,10 @@ Install
 yarn install
 ```
 
+Start: 
+```
+npm start
+```
 Launch server application: 
 ```
 npm run server

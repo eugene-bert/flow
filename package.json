@@ -10,7 +10,8 @@
   },
   "scripts": {
     "client": "yarn workspace flow-client start",
-    "server": "yarn workspace flow-server dev"
+    "server": "yarn workspace flow-server dev",
+    "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "workspaces": [
     "packages/*"
@@ -18,5 +19,8 @@
   "devDependencies": {
     "lerna": "^3.22.1",
     "prettier": "^2.0.5"
+  },
+  "dependencies": {
+    "concurrently": "^5.3.0"
   }
 }

@@ -25,6 +25,7 @@
     "graphql": "^14.1.1",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.10",
+    "open": "^7.3.0",
     "throng": "^4.0.0"
   },
   "devDependencies": {
