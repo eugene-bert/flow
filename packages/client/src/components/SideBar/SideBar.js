@@ -28,7 +28,7 @@ export const SideBar = (props) => {
                   <Button>My profile</Button>
                 </Link>
                 <Link to="/dashboards" onClick={() => isSideBarOpenVar(false)}>
-                  <Button>Dashboard</Button>
+                  <Button>Dashboards</Button>
                 </Link>
                 <Button
                   onClick={() => {

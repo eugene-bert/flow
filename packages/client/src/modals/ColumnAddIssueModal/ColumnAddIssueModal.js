@@ -5,6 +5,7 @@ import { AddCircle } from 'grommet-icons';
 import {useMutation} from '@apollo/client';
 import {createIssueInColumn} from '../../graphql/mutations/issue';
 import {columnQuery} from '../../graphql/queries/column';
+import {FormClose} from 'grommet-icons/index';
 
 export const ColumnAddIssueModal = (props) => {
   const [inputs, setInputs] = useState({});
@@ -30,7 +31,18 @@ export const ColumnAddIssueModal = (props) => {
             setShow(false);
           }}
         >
-          <Box flex align="center" justify="center" width="medium">
+          <Box
+            tag="header"
+            justify="end"
+            align="center"
+            direction="row"
+          >
+            <Button
+              icon={<FormClose />}
+              onClick={() =>  setShow(false)}
+            />
+          </Box>
+          <Box fill align="center" justify="center" width="medium">
             <Box align="center" justify="center">
               <Heading level={4} margin="none">
                 <strong>Add new issue to {props.columnName}</strong>

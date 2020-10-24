@@ -5,6 +5,7 @@ import { Button, Form, FormField, Heading, Layer } from "grommet/index";
 import { useMutation } from "@apollo/client";
 import { deleteDashboard } from "../../graphql/mutations/dashboard";
 import styled from "styled-components";
+import {FormClose} from 'grommet-icons/index';
 
 const ButtonStyle = styled.div`
   margin: 5px;
@@ -45,7 +46,18 @@ const DashboardDelete = (props) => {
               setShow(false);
             }}
           >
-            <Box flex align="center" justify="center" width="medium">
+            <Box
+              tag="header"
+              justify="end"
+              align="center"
+              direction="row"
+            >
+              <Button
+                icon={<FormClose />}
+                onClick={() =>  setShow(false)}
+              />
+            </Box>
+            <Box fill align="center" justify="center" width="medium">
               <Box align="center" justify="center">
                 <Heading level={4} margin="none">
                   <strong>Delete dashboard</strong>

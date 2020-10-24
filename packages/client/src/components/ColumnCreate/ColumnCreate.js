@@ -11,6 +11,7 @@ import {
 import { useMutation } from "@apollo/client";
 import { createColumn } from "../../graphql/mutations/column";
 import styled from "styled-components";
+import {FormClose} from 'grommet-icons/index';
 
 const ButtonStyle = styled.div`
   margin: 5px;
@@ -41,7 +42,18 @@ const ColumnCreate = (props) => {
               setShow(false);
             }}
           >
-            <Box flex align="center" justify="center" width="medium">
+            <Box
+              tag="header"
+              justify="end"
+              align="center"
+              direction="row"
+            >
+              <Button
+                icon={<FormClose />}
+                onClick={() =>  setShow(false)}
+              />
+            </Box>
+            <Box fill align="center" justify="center" width="medium">
               <Box align="center" justify="center">
                 <Heading level={4} margin="none">
                   <strong>Add new column</strong>

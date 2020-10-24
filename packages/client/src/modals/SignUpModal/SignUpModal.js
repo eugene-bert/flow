@@ -5,6 +5,7 @@ import {useMutation, useReactiveVar} from '@apollo/client';
 import { signUpMutation } from "../../graphql/mutations/user";
 import { Link } from "react-router-dom";
 import {isRegisteredVar} from '../../cache';
+import {FormClose} from 'grommet-icons/index';
 
 export const SignUpModal = () => {
   const [inputs, setInputs] = useState({});
@@ -27,7 +28,7 @@ export const SignUpModal = () => {
 
   return (
     <Box>
-      <Button label="First time  here?" onClick={() => setShow(true)} />
+      <Button label="First time  here?" onClick={() => setShow(true)} margin="xsmall"/>
       {show && (
         <Layer
           onEsc={() => setShow(false)}
@@ -35,8 +36,19 @@ export const SignUpModal = () => {
             setShow(false);
           }}
         >
+          <Box
+            tag="header"
+            justify="end"
+            align="center"
+            direction="row"
+          >
+            <Button
+              icon={<FormClose />}
+              onClick={() =>  setShow(false)}
+            />
+          </Box>
           {!isRegistered ? (
-            <Box align="center" justify="center" width="medium">
+            <Box fill align="center" justify="center" width="medium" pad="large">
               <Heading level={4} margin="none">
                 <strong>Sign Up</strong>
               </Heading>
@@ -88,7 +100,7 @@ export const SignUpModal = () => {
               </Box>
             </Box>
           ) : (
-            <Box>
+            <Box fill align="center" justify="center" width="medium" pad="large">
               <Text color="green">{email}</Text>
               <Text> Was successfully registered</Text>
               <Text>

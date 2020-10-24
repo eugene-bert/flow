@@ -28,6 +28,11 @@ const typeDefs = gql`
       assignee: String
     ): Issue
 
+    deleteIssue(
+      columnId: String!,
+      issueId: String!
+    ): Issue
+
     createIssueInColumn(
       column: String!
       title: String!

@@ -24,7 +24,7 @@ export const TopBar = () => {
     <AppBar>
       <Heading level="3" margin="none">
         <Link to="/">
-          <Text size="'large'">Flow</Text>
+          Flow
         </Link>
       </Heading>
       <Button

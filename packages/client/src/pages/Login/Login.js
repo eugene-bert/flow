@@ -59,7 +59,7 @@ export const Login = () => {
               />
             </FormField>
             <Box justify="center" direction="row" gap="medium">
-              <Button type="submit" primary label="Submit" />
+              <Button type="submit" primary label="Submit" margin="small"/>
             </Box>
           </Form>
           <SignUpModal />

@@ -44,7 +44,7 @@ export const DashboardColumn = (props) => {
             <Title>{data.column.title}</Title>
             <TaskList>
               {data.column.issues.map((el,index) => {
-                return <DashboardIssue issueId={el} key={index} index={index}/>
+                return <DashboardIssue columnId={props.columnId} issueId={el} key={index} index={index}/>
               })}
             </TaskList>
             <ColumnAddIssueModal refetch={refetch} columnId={props.columnId} columnName={data.column.title} dahsboard={data.column.dashboard}/>

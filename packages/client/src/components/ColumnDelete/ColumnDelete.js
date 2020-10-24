@@ -10,12 +10,12 @@ import {
 } from "grommet/index";
 import { useMutation } from "@apollo/client";
 import {deleteColumn} from '../../graphql/mutations/column';
+import {FormClose} from 'grommet-icons/index';
 
 const ColumnDelete = (props) => {
   const [value, setValue] = React.useState(`no let's keep it`);
   const [show, setShow] = useState(false);
   const [remove] = useMutation(deleteColumn);
-  const history = useHistory();
 
   const submitHandle = () => {
     if (value === "yes, please delete this column") {
@@ -23,7 +23,6 @@ const ColumnDelete = (props) => {
         console.log(data)
       })
       setShow(false)
-      history.push('/dashboards')
     } else {
       setShow(false)
     }
@@ -45,7 +44,18 @@ const ColumnDelete = (props) => {
             setShow(false);
           }}
         >
-          <Box flex align="center" justify="center" width="medium">
+          <Box
+            tag="header"
+            justify="end"
+            align="center"
+            direction="row"
+          >
+            <Button
+              icon={<FormClose />}
+              onClick={() =>  setShow(false)}
+            />
+          </Box>
+          <Box fill align="center" justify="center" width="medium">
             <Box align="center" justify="center">
               <Heading level={4} margin="none">
                 <strong>Delete column</strong>

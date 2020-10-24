@@ -40,4 +40,16 @@ const createIssueInColumn = gql`
     }
 `;
 
-export { createIssue, updateIssue, createIssueInColumn };
+const deleteIssue = gql`
+    mutation($columnId: String!, $issueId: String!) {
+        deleteIssue(columnId: $columnId,  issueId: $issueId) {
+            title,
+            column,
+            description,
+            dashboard
+            labels
+        }
+    }
+`;
+
+export { createIssue, updateIssue, createIssueInColumn, deleteIssue };

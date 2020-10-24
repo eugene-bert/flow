@@ -5,7 +5,8 @@ import React, {Fragment, useState} from 'react';
 import styled from 'styled-components';
 import {Box, Button, Heading, Layer} from 'grommet/index';
 import {Paragraph, Text} from 'grommet';
-import {updateIssue} from '../../graphql/mutations/issue';
+import {updateIssue, deleteIssue } from '../../graphql/mutations/issue';
+import {FormClose} from 'grommet-icons/index';
 
 const Container = styled.div`
   border: 1px solid lightgrey;
@@ -20,6 +21,7 @@ export const DashboardIssue = (props) => {
     variables: { id: props.issueId },
   });
   const [update] = useMutation(updateIssue)
+  const [issueDelete] = useMutation(deleteIssue)
   const [show, setShow] = useState(false);
   const id = props.issueId;
 
@@ -32,6 +34,12 @@ export const DashboardIssue = (props) => {
       console.log(data);
     });
   };
+
+  const removeIssue = () => {
+    issueDelete({ variables: { columnId: props.columnId, issueId: id  }}).then((data) => {
+      console.log(data);
+    });
+  }
 
   return data ? (
     <Draggable draggableId={props.issueId} index={props.index} key={props.issueId} >
@@ -52,8 +60,23 @@ export const DashboardIssue = (props) => {
                   setShow(false);
                 }}
               >
-                <Box flex align="center" justify="center" width="medium" pad="medium">
+                <Box
+                  tag="header"
+                  justify="end"
+                  align="center"
+                  direction="row"
+                >
+                  <Button
+                    icon={<FormClose />}
+                    onClick={() => setShow(false)}
+                    // TODO: check why is not working
+                  />
+                </Box>
+                <Box fill align="center" justify="center" width="medium">
                   <Box align="center" justify="center">
+                    <Heading level={6} margin="none">
+                      Click to edit
+                    </Heading>
                     <Heading level={4} margin="none">
                       <strong
                         contentEditable={true}
@@ -77,6 +100,11 @@ export const DashboardIssue = (props) => {
                         primary
                         label="Save issue"
                         onClick={() => submitHandle()}
+                      />
+                      <Button
+                        primary
+                        label="Delete issue"
+                        onClick={() => removeIssue()}
                       />
                     </Box>
                   </Box>

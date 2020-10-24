@@ -7,6 +7,7 @@ import {searchUserById} from '../../graphql/queries/user';
 import {shareDashboard, unShareDashboard} from '../../graphql/mutations/dashboard';
 import {FormTrash} from 'grommet-icons';
 import {myEmailVar} from '../../cache';
+import {FormClose} from 'grommet-icons/index';
 
 const ButtonStyle = styled.div`
   margin: 5px;
@@ -74,7 +75,18 @@ const DashboardUsers = (props) => {
               setShow(false);
             }}
           >
-            <Box flex align="center" justify="center" width="medium">
+            <Box
+              tag="header"
+              justify="end"
+              align="center"
+              direction="row"
+            >
+              <Button
+                icon={<FormClose />}
+                onClick={() =>  setShow(false)}
+              />
+            </Box>
+            <Box fill align="center" justify="center" width="medium">
               <Box align="center" justify="center">
                 <Heading level={3} margin="none">
                   <strong>Users</strong>

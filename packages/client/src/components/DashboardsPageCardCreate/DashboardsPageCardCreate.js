@@ -4,6 +4,8 @@ import {Button, Form, FormField, Heading, Layer, TextArea, TextInput} from 'grom
 import {Link} from 'react-router-dom';
 import {useMutation} from '@apollo/client';
 import {createDashboard, updateDashboard} from '../../graphql/mutations/dashboard';
+import {FormClose} from 'grommet-icons/index';
+import {isSideBarOpenVar} from '../../cache';
 
 const DashboardsPageCardCreate = (props) => {
   const [inputs, setInputs] = useState({});
@@ -33,6 +35,17 @@ const DashboardsPageCardCreate = (props) => {
             setShow(false);
           }}
         >
+          <Box
+            tag="header"
+            justify="end"
+            align="center"
+            direction="row"
+          >
+            <Button
+              icon={<FormClose />}
+              onClick={() =>  setShow(false)}
+            />
+          </Box>
           <Box flex align="center" justify="center" width="medium">
             <Box align="center" justify="center">
               <Heading level={4} margin="none">

@@ -14,7 +14,7 @@ const typeDefs = gql`
     ): Column
 
     deleteColumn(
-      id: ID!
+      id: String!
     ): Column
 
     updateColumn(
