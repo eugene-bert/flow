@@ -46,7 +46,7 @@ const DashboardsPageCardCreate = (props) => {
               onClick={() =>  setShow(false)}
             />
           </Box>
-          <Box flex align="center" justify="center" width="medium">
+          <Box fill align="center" justify="center" width="medium" pad="medium">
             <Box align="center" justify="center">
               <Heading level={4} margin="none">
                 <strong>Add new dashboard</strong>

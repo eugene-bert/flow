@@ -23,7 +23,7 @@ export const ColumnAddIssueModal = (props) => {
 
   return (
     <Fragment>
-        <AddCircle onClick={() => setShow(true)} />
+      <Button label="Add new issue" onClick={() => setShow(true)} />
       {show && (
         <Layer
           onEsc={() => setShow(false)}
@@ -42,7 +42,7 @@ export const ColumnAddIssueModal = (props) => {
               onClick={() =>  setShow(false)}
             />
           </Box>
-          <Box fill align="center" justify="center" width="medium">
+          <Box fill align="center" justify="center" width="medium" pad="large">
             <Box align="center" justify="center">
               <Heading level={4} margin="none">
                 <strong>Add new issue to {props.columnName}</strong>

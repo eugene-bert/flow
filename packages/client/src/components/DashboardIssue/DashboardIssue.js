@@ -72,7 +72,7 @@ export const DashboardIssue = (props) => {
                     // TODO: check why is not working
                   />
                 </Box>
-                <Box fill align="center" justify="center" width="medium">
+                <Box fill align="center" justify="center" width="medium" pad="medium">
                   <Box align="center" justify="center">
                     <Heading level={6} margin="none">
                       Click to edit

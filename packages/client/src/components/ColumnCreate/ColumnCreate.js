@@ -53,7 +53,7 @@ const ColumnCreate = (props) => {
                 onClick={() =>  setShow(false)}
               />
             </Box>
-            <Box fill align="center" justify="center" width="medium">
+            <Box fill align="center" justify="center" width="medium" pad="large">
               <Box align="center" justify="center">
                 <Heading level={4} margin="none">
                   <strong>Add new column</strong>

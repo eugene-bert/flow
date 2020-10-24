@@ -86,7 +86,7 @@ const DashboardUsers = (props) => {
                 onClick={() =>  setShow(false)}
               />
             </Box>
-            <Box fill align="center" justify="center" width="medium">
+            <Box fill align="center" justify="center" width="medium" pad="large">
               <Box align="center" justify="center">
                 <Heading level={3} margin="none">
                   <strong>Users</strong>

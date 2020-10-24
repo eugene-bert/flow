@@ -36,7 +36,7 @@ const ColumnDelete = (props) => {
 
   return (
     <Fragment>
-      <Button label="Delete column" onClick={() => setShow(true)} />
+      <Button label="Delete column" onClick={() => setShow(true)} margin="small"/>
       {show && (
         <Layer
           onEsc={() => setShow(false)}

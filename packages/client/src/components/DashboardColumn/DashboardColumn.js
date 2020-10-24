@@ -7,6 +7,7 @@ import ColumnDelete from '../ColumnDelete/ColumnDelete';
 import {DashboardIssue} from '../DashboardIssue/DashboardIssue';
 import styled from 'styled-components';
 import {dashboardColumnIssuesVar} from '../../cache';
+import {Box} from 'grommet';
 
 
 const Container = styled.div`
@@ -47,8 +48,10 @@ export const DashboardColumn = (props) => {
                 return <DashboardIssue columnId={props.columnId} issueId={el} key={index} index={index}/>
               })}
             </TaskList>
-            <ColumnAddIssueModal refetch={refetch} columnId={props.columnId} columnName={data.column.title} dahsboard={data.column.dashboard}/>
-            <ColumnDelete/>
+            <Box align="center" justify="center">
+              <ColumnAddIssueModal refetch={refetch} columnId={props.columnId} columnName={data.column.title} dahsboard={data.column.dashboard}/>
+              <ColumnDelete/>
+            </Box>
             {provided.placeholder}
           </Container>
         )}
