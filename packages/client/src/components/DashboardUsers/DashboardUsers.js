@@ -70,6 +70,7 @@ const DashboardUsers = (props) => {
         <Button label="Users" onClick={() => setShow(true)} />
         {show && (
           <Layer
+            className="modal"
             onEsc={() => setShow(false)}
             onClickOutside={() => {
               setShow(false);

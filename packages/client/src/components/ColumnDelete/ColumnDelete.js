@@ -39,6 +39,7 @@ const ColumnDelete = (props) => {
       <Button label="Delete column" onClick={() => setShow(true)} margin="small"/>
       {show && (
         <Layer
+          className="modal"
           onEsc={() => setShow(false)}
           onClickOutside={() => {
             setShow(false);

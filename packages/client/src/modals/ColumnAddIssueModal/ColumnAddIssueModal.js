@@ -16,6 +16,7 @@ export const ColumnAddIssueModal = (props) => {
     let {title, description} = inputs
     create({ variables: { column: props.columnId, dashboard: props.dahsboard, title, description}}).then((data) => {
       setShow(false)
+      props.refetch()
     });
   };
 
@@ -26,6 +27,7 @@ export const ColumnAddIssueModal = (props) => {
       <Button label="Add new issue" onClick={() => setShow(true)} />
       {show && (
         <Layer
+          className="modal"
           onEsc={() => setShow(false)}
           onClickOutside={() => {
             setShow(false);

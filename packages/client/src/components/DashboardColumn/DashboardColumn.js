@@ -14,7 +14,7 @@ const Container = styled.div`
    min-width: 280px;
    margin: 8px;
    border: 1px solid lightgrey;
-   border-radius: 2px;
+   border-radius: 15px;
 `;
 const Title = styled.h3`
    padding: 8px;
@@ -27,13 +27,6 @@ export const DashboardColumn = (props) => {
   const { data, loading, error, refetch } = useQuery(columnQuery, {
     variables: { id: props.columnId }
   });
-  const issues = useReactiveVar(dashboardColumnIssuesVar)
-
-  if (data) {
-    let column = data.column.id,
-        columnIssues = data.column.issues
-        issues.push([column, columnIssues])
-  }
 
   return data ? (
     <Fragment>
@@ -45,7 +38,7 @@ export const DashboardColumn = (props) => {
             <Title>{data.column.title}</Title>
             <TaskList>
               {data.column.issues.map((el,index) => {
-                return <DashboardIssue columnId={props.columnId} issueId={el} key={index} index={index}/>
+                return <DashboardIssue refetch={refetch} columnId={props.columnId} issueId={el} key={index} index={index}/>
               })}
             </TaskList>
             <Box align="center" justify="center">

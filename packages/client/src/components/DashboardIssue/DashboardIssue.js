@@ -19,6 +19,7 @@ const Container = styled.div`
 export const DashboardIssue = (props) => {
   const { data, loading, error } = useQuery(oneIssueQuery, {
     variables: { id: props.issueId },
+    fetchPolicy: "network-only"
   });
   const [update] = useMutation(updateIssue)
   const [issueDelete] = useMutation(deleteIssue)
@@ -32,12 +33,16 @@ export const DashboardIssue = (props) => {
         .innerHTML;
     update({ variables: { id, title, description }}).then((data) => {
       console.log(data);
+      props.refetch()
+      setShow(false);
     });
   };
 
   const removeIssue = () => {
     issueDelete({ variables: { columnId: props.columnId, issueId: id  }}).then((data) => {
       console.log(data);
+      props.refetch()
+      setShow(false);
     });
   }
 
@@ -53,6 +58,7 @@ export const DashboardIssue = (props) => {
             <Text>{data.issue.title}</Text>
             {show && (
               <Layer
+                className="modal"
                 onEsc={() => {
                   setShow(false);
                 }}

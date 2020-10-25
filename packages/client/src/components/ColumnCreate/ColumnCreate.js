@@ -37,6 +37,7 @@ const ColumnCreate = (props) => {
         <Button label="Create new column" onClick={() => setShow(true)} />
         {show && (
           <Layer
+            className="modal"
             onEsc={() => setShow(false)}
             onClickOutside={() => {
               setShow(false);

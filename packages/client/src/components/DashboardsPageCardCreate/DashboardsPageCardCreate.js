@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {Box, Text} from 'grommet';
 import {Button, Form, FormField, Heading, Layer, TextArea, TextInput} from 'grommet/index';
 import {Link} from 'react-router-dom';
@@ -6,6 +6,8 @@ import {useMutation} from '@apollo/client';
 import {createDashboard, updateDashboard} from '../../graphql/mutations/dashboard';
 import {FormClose} from 'grommet-icons/index';
 import {isSideBarOpenVar} from '../../cache';
+import styled from 'styled-components';
+
 
 const DashboardsPageCardCreate = (props) => {
   const [inputs, setInputs] = useState({});
@@ -21,15 +23,11 @@ const DashboardsPageCardCreate = (props) => {
   };
 
   return (
-    <Box
-      align="center"
-      justify="center"
-      pad="large"
-      round="xsmall"
-    >
+    <Fragment>
       <Button label="Create new dashboard" onClick={() => setShow(true)}/>
       {show && (
         <Layer
+          className="modal"
           onEsc={() => setShow(false)}
           onClickOutside={() => {
             setShow(false);
@@ -77,7 +75,7 @@ const DashboardsPageCardCreate = (props) => {
           </Box>
         </Layer>
       )}
-    </Box>
+    </Fragment>
   );
 };
 

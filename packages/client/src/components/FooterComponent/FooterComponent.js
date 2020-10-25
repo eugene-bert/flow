@@ -4,7 +4,7 @@ import {Anchor, Box, Footer, Text} from 'grommet';
 export const FooterComponent = () => {
   return (
     <Footer
-      background="brand"
+      background="color1"
       pad="medium"
       as="footer"
       align="center"

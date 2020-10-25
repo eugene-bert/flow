@@ -31,6 +31,7 @@ export const SignUpModal = () => {
       <Button label="First time  here?" onClick={() => setShow(true)} margin="xsmall"/>
       {show && (
         <Layer
+          className="modal"
           onEsc={() => setShow(false)}
           onClickOutside={() => {
             setShow(false);

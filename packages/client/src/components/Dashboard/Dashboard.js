@@ -1,14 +1,18 @@
-import React, { Fragment } from "react";
-import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
+import React, { Fragment, useEffect, useState } from "react";
+import {
+  useMutation,
+  useQuery,
+} from "@apollo/client";
 import { DragDropContext } from "react-beautiful-dnd";
 import { dashboardQuery } from "../../graphql/queries/dashboard";
 import ColumnCreate from "../ColumnCreate/ColumnCreate";
 import DashboardDelete from "../DashboardDelete/DashboardDelete";
 import styled from "styled-components";
 import { DashboardColumn } from "../DashboardColumn/DashboardColumn";
-import { dashboardColumnIssuesVar } from "../../cache";
 import { updateColumn } from "../../graphql/mutations/column";
 import DashboardUsers from "../DashboardUsers/DashboardUsers";
+import { columnQuery } from "../../graphql/queries/column";
+import { client } from "../../index";
 
 const Container = styled.div`
   display: flex;
@@ -24,9 +28,28 @@ const DashboardBar = styled.div`
 export const Dashboard = (props) => {
   const { data, loading, error, refetch } = useQuery(dashboardQuery, {
     variables: { id: props.dashboardId },
+    fetchPolicy: 'cache-and-network'
   });
-  const dashboardData = useReactiveVar(dashboardColumnIssuesVar);
   const [update] = useMutation(updateColumn);
+  const [columns, setColumns] = useState([]);
+  useEffect(() => {
+    let columnArray = [];
+    client
+      .query({ query: dashboardQuery, variables: { id: props.dashboardId } })
+      .then((data) => {
+        data.data.dashboard.columns.map((el) =>
+          client
+            .query({ query: columnQuery, variables: { id: el } })
+            .then((result) => {
+              columnArray.push([
+                result.data.column.id,
+                result.data.column.issues,
+              ])
+              setColumns(columnArray)
+            })
+        );
+      });
+  }, []);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -52,16 +75,14 @@ export const Dashboard = (props) => {
     ];
     return result;
   };
-
-  const onDragEnd = (result) => {
+  const onDragEnd = async (result) => {
     const { source, destination, draggableId } = result;
-    const destinationColumnData = dashboardData.find(
+    const destinationColumnData = columns.find(
       (el) => el[0] === destination.droppableId
     )[1];
-    const sourceColumnData = dashboardData.find(
+    const sourceColumnData = columns.find(
       (el) => el[0] === source.droppableId
     )[1];
-
     // dropped outside the list
     if (!destination) {
       return;
@@ -70,9 +91,10 @@ export const Dashboard = (props) => {
     if (source.droppableId === destination.droppableId) {
       const items = reorder(sourceColumnData, source.index, destination.index);
 
-      update({ variables: { id: source.droppableId, issues: items } }).then(
+      await update({ variables: { id: source.droppableId, issues: items } }).then(
         (data) => {
           console.log(data);
+          refetch()
         }
       );
     } else {
@@ -88,16 +110,18 @@ export const Dashboard = (props) => {
         destinationColumn = result[1].destinationColumn,
         destinationIssues = result[1].destinationIssues;
 
-      update({ variables: { id: sourceColumn, issues: sourceIssues } }).then(
+      await update({ variables: { id: sourceColumn, issues: sourceIssues } }).then(
         (data) => {
           console.log(data);
+          refetch()
         }
       );
 
-      update({
+      await update({
         variables: { id: destinationColumn, issues: destinationIssues },
       }).then((data) => {
         console.log(data);
+        refetch()
       });
     }
   };
@@ -116,7 +140,9 @@ export const Dashboard = (props) => {
       <Container>
         <DragDropContext onDragEnd={onDragEnd}>
           {data.dashboard.columns.map((el, index) => {
-            return <DashboardColumn key={index} columnId={el} />;
+            return (
+              <DashboardColumn refetch={refetch} key={index} columnId={el} />
+            );
           })}
         </DragDropContext>
       </Container>

@@ -5,11 +5,12 @@ export const theme = {
   defaultMode: "light",
   global: {
     colors: {
-      brand: "#90ee90",
-      accent:"#FFCA58",
+      brand: "#5d26c1",
+      accent: "#a17fe0",
+      color1: "linear-gradient(to right, #59c173, #a17fe0, #5d26c1)",
       background: {
         dark: "#111111",
-        light: "#FFFFFF",
+        light: "#F3F3F3",
       },
     },
     font: {
@@ -18,18 +19,21 @@ export const theme = {
       height: "20px",
     },
   },
+  text: {
+    color: {
+      light: "#a17fe0"
+    }
+  },
+  button: {
+    border: {
+      width: "2px",
+      color: "#a17fe0",
+    },
+    primary: {
+      color: {
+        light: "#5d26c1",
+        dark: "#a17fe0",
+      },
+    },
+  },
 };
-
-export const AppBar = (props) => (
-  <Box
-    tag="header"
-    direction="row"
-    align="center"
-    justify="between"
-    background="brand"
-    pad={{ left: "medium", right: "small", vertical: "small" }}
-    elevation="medium"
-    style={{ zIndex: "1" }}
-    {...props}
-  />
-);
