@@ -6,6 +6,7 @@ import { useMutation } from "@apollo/client";
 import { deleteDashboard } from "../../graphql/mutations/dashboard";
 import styled from "styled-components";
 import {FormClose} from 'grommet-icons/index';
+import {useToasts} from 'react-toast-notifications';
 
 const ButtonStyle = styled.div`
   margin: 5px;
@@ -16,23 +17,21 @@ const DashboardDelete = (props) => {
   const [show, setShow] = useState(false);
   const [remove] = useMutation(deleteDashboard);
   const history = useHistory();
+  const { addToast } = useToasts()
 
   const submitHandle = () => {
     if (value === "yes, please delete this dashboard") {
       remove({ variables: { id: props.dashboardId } }).then((data) => {
+        addToast('Dashboard was removed', { appearance: 'success' })
         console.log(data);
+      }).catch(error => {
+        addToast(error.message, { appearance: 'error' })
       });
       setShow(false);
       history.push("/dashboards");
     } else {
       setShow(false);
     }
-    // let title = inputs.title,
-    //   id = props.dashboardId;
-    //
-    // create({ variables: { title, dashboard: id } }).then((data) => {
-    //   console.log(data);
-    // });
   };
 
   return (

@@ -1,24 +1,26 @@
 import React, {Fragment, useState} from 'react';
 import {Box, Text} from 'grommet';
-import {Button, Form, FormField, Heading, Layer, TextArea, TextInput} from 'grommet/index';
-import {Link} from 'react-router-dom';
+import {Button, Form, FormField, Heading, Layer, TextInput} from 'grommet/index';
 import {useMutation} from '@apollo/client';
-import {createDashboard, updateDashboard} from '../../graphql/mutations/dashboard';
+import {createDashboard} from '../../graphql/mutations/dashboard';
 import {FormClose} from 'grommet-icons/index';
-import {isSideBarOpenVar} from '../../cache';
-import styled from 'styled-components';
+import {useToasts} from 'react-toast-notifications';
 
 
 const DashboardsPageCardCreate = (props) => {
   const [inputs, setInputs] = useState({});
   const [show, setShow] = useState(false);
   const [create] = useMutation(createDashboard);
+  const { addToast } = useToasts();
 
   const submitHandle = () => {
     let title = inputs.title
     create({ variables: { title }}).then((data) => {
       props.refetch()
       setShow(false)
+      addToast(`${inputs.title} created successfully`, { appearance: 'success' })
+    }).catch(error => {
+      addToast(error.message, { appearance: 'error' })
     });
   };
 

@@ -12,6 +12,7 @@ import { useMutation } from "@apollo/client";
 import { createColumn } from "../../graphql/mutations/column";
 import styled from "styled-components";
 import {FormClose} from 'grommet-icons/index';
+import {useToasts} from 'react-toast-notifications';
 
 const ButtonStyle = styled.div`
   margin: 5px;
@@ -21,6 +22,7 @@ const ColumnCreate = (props) => {
   const [inputs, setInputs] = useState({});
   const [show, setShow] = useState(false);
   const [create] = useMutation(createColumn);
+  const { addToast } = useToasts();
 
   const submitHandle = () => {
     create({
@@ -28,6 +30,9 @@ const ColumnCreate = (props) => {
     }).then((data) => {
       props.refetch();
       setShow(false);
+      addToast(`${inputs.title} created successfully`, { appearance: 'success' })
+    }).catch(error => {
+      addToast(error.message, { appearance: 'error' })
     });
   };
 

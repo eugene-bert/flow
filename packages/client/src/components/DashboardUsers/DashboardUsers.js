@@ -8,6 +8,7 @@ import {shareDashboard, unShareDashboard} from '../../graphql/mutations/dashboar
 import {FormTrash} from 'grommet-icons';
 import {myEmailVar} from '../../cache';
 import {FormClose} from 'grommet-icons/index';
+import {useToasts} from 'react-toast-notifications';
 
 const ButtonStyle = styled.div`
   margin: 5px;
@@ -17,12 +18,16 @@ const UserList = (props) => {
   const { data, loading, error, refetch } = useQuery(searchUserById, {variables: {id: props.userId}});
   const [unShare] = useMutation(unShareDashboard);
   const email = useReactiveVar(myEmailVar)
+  const { addToast } = useToasts()
+
+  //TODO: check users refetch
 
   const handleDelete = () => {
     unShare({variables: {email: data.searchUserById.email, dashboardId: props.dashboardId}}).then(data => {
+      addToast(`Deleted Successfully`, { appearance: 'success' })
       console.log(data)
-    }).catch(e => {
-      console.log(e)
+    }).catch(error => {
+      addToast(error.message, { appearance: 'error' })
     })
   }
 
@@ -40,12 +45,15 @@ const UserList = (props) => {
 const AddUser = (props) => {
   const [value, setValue] = React.useState('');
   const [share] = useMutation(shareDashboard);
+  const { addToast } = useToasts()
 
   const handleSubmit = () => {
     share({variables: {email: value, dashboardId: props.dashboardId}}).then(data => {
+      addToast(`${value} Saved Successfully`, { appearance: 'success' })
       console.log(data)
-    }).catch(e => {
-      console.log(e)
+    }).catch(error => {
+      addToast(`There is no such user in system`, { appearance: 'error' })
+      console.log(error)
     })
   }
 

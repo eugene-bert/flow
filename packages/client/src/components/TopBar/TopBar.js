@@ -3,9 +3,8 @@ import React from "react";
 import { Menu } from "grommet-icons/index";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
-import { isSideBarOpenVar } from "../../cache";
-import {Return} from 'grommet-icons';
-import {Text} from 'grommet';
+import {isLoggedInVar} from '../../cache';
+import {useReactiveVar} from '@apollo/client';
 
 const AppBar = (props) => (
   <Box
@@ -35,6 +34,7 @@ const ButtonStyle = styled.div`
 
 export const TopBar = () => {
   const location = useLocation();
+  const loggedIn = useReactiveVar(isLoggedInVar);
 
   return (
     <AppBar>
@@ -43,7 +43,7 @@ export const TopBar = () => {
           Flow
         </Heading>
       </Box>
-      {location.pathname !== "/" && location.pathname !== "/dashboards" ? (
+      {location.pathname !== "/" && location.pathname !== "/dashboards" && loggedIn ? (
         <ButtonStyle>
           <Link to="/dashboards">
             Return to Dashboards

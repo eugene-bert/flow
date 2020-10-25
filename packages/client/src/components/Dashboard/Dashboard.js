@@ -23,6 +23,10 @@ const DashboardBar = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px;
+  
+  button {
+    min-height: 84px;
+  }
 `;
 
 export const Dashboard = (props) => {
@@ -132,6 +136,7 @@ export const Dashboard = (props) => {
           <ColumnCreate refetch={refetch} dashboardId={props.dashboardId} />
           <DashboardDelete refetch={refetch} dashboardId={props.dashboardId} />
           <DashboardUsers
+            refetch={refetch}
             dashboardId={props.dashboardId}
             users={data.dashboard.users}
           />

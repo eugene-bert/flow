@@ -11,27 +11,27 @@ import {
 import { useMutation } from "@apollo/client";
 import {deleteColumn} from '../../graphql/mutations/column';
 import {FormClose} from 'grommet-icons/index';
+import {useToasts} from 'react-toast-notifications';
 
 const ColumnDelete = (props) => {
   const [value, setValue] = React.useState(`no let's keep it`);
   const [show, setShow] = useState(false);
   const [remove] = useMutation(deleteColumn);
+  const { addToast } = useToasts()
 
   const submitHandle = () => {
     if (value === "yes, please delete this column") {
       remove({variables: {id: props.dashboardId}}).then(data => {
+        addToast(`Removed Successfully`, { appearance: 'success' })
         console.log(data)
+      }).catch(error => {
+        // TODO: check why there is an error
+        addToast(error.message, { appearance: 'error' })
       })
       setShow(false)
     } else {
       setShow(false)
     }
-    // let title = inputs.title,
-    //   id = props.dashboardId;
-    //
-    // create({ variables: { title, dashboard: id } }).then((data) => {
-    //   console.log(data);
-    // });
   };
 
   return (

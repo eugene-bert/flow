@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
+import { ApolloClient, ApolloProvider, createHttpLink } from "@apollo/client";
+import { ToastProvider } from 'react-toast-notifications'
 import AppRoot from "./decorators";
 import {setContext} from '@apollo/client/link/context';
 import {cache} from './cache'
@@ -29,7 +30,9 @@ export const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
+    <ToastProvider placement="top-center" autoDismissTimeout={1500} autoDismiss={true}>
       <AppRoot />
+    </ToastProvider>
   </ApolloProvider>,
   document.getElementById("root")
 );

@@ -1,22 +1,25 @@
 import React, {Fragment, useState} from 'react';
 import { Box, Button, Layer, Text } from "grommet";
 import { Form, FormField, Heading, TextArea, TextInput } from "grommet/index";
-import { AddCircle } from 'grommet-icons';
 import {useMutation} from '@apollo/client';
 import {createIssueInColumn} from '../../graphql/mutations/issue';
-import {columnQuery} from '../../graphql/queries/column';
 import {FormClose} from 'grommet-icons/index';
+import {useToasts} from 'react-toast-notifications';
 
 export const ColumnAddIssueModal = (props) => {
   const [inputs, setInputs] = useState({});
   const [show, setShow] = useState(false);
   const [create] = useMutation(createIssueInColumn);
+  const { addToast } = useToasts()
 
   const submitHandle = () => {
     let {title, description} = inputs
     create({ variables: { column: props.columnId, dashboard: props.dahsboard, title, description}}).then((data) => {
+      addToast(`Saved Successfully`, { appearance: 'success' })
       setShow(false)
       props.refetch()
+    }).catch((error) => {
+      addToast(error.message, { appearance: 'error' })
     });
   };
 

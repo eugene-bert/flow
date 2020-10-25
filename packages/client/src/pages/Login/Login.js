@@ -12,18 +12,23 @@ import { loginMutation } from "../../graphql/mutations/user";
 import { useMutation } from "@apollo/client";
 import { SignUpModal } from "../../modals/SignUpModal/SignUpModal";
 import {isLoggedInVar} from '../../cache';
+import {useToasts} from 'react-toast-notifications';
 
 export const Login = () => {
   const [inputs, setInputs] = useState({});
   const {email, password} = inputs
   const [loginHandle] = useMutation(loginMutation);
+  const { addToast } = useToasts()
   const loginAction = () => {
     loginHandle({ variables: { email, password } }).then((data) => {
       localStorage.setItem("token", data.data.login.token)
       localStorage.setItem("tokenExpiration", data.data.login.tokenExpiration)
       isLoggedInVar(true)
     })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        addToast(error.message, { appearance: 'error' })
+        console.log(error)
+      });
   }
 
   return (
