@@ -46,7 +46,7 @@ export const TopBar = () => {
       {location.pathname !== "/" && location.pathname !== "/dashboards" && loggedIn ? (
         <ButtonStyle>
           <Link to="/dashboards">
-            Return to Dashboards
+            Back to Dashboards
           </Link>
         </ButtonStyle>
       ) : null}

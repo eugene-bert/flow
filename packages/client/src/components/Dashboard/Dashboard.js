@@ -17,6 +17,7 @@ import { client } from "../../index";
 const Container = styled.div`
   display: flex;
   overflow: auto;
+  margin: 0 auto;
 `;
 
 const DashboardBar = styled.div`

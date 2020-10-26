@@ -47,9 +47,9 @@ export const ColumnAddIssueModal = (props) => {
               onClick={() =>  setShow(false)}
             />
           </Box>
-          <Box fill align="center" justify="center" width="medium" pad="large">
+          <Box fill align="center" justify="center" width="medium" pad="small">
             <Box align="center" justify="center">
-              <Heading level={4} margin="none">
+              <Heading level={4} margin="medium" >
                 <strong>Add new issue to {props.columnName}</strong>
               </Heading>
               <Box gap="xsmall">

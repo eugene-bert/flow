@@ -78,8 +78,8 @@ const DashboardDelete = (props) => {
                         onChange={(event) => setValue(event.target.value)}
                       />
                     </FormField>
-                    <Box justify="center" direction="row" gap="medium">
-                      <Button type="submit" primary label="Submit" />
+                    <Box justify="center" direction="row" gap="medium" pad="medium">
+                      <Button type="submit" primary label="Submit"/>
                     </Box>
                   </Form>
                 </Box>

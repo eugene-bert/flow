@@ -100,7 +100,7 @@ const DashboardUsers = (props) => {
                 <Heading level={3} margin="none">
                   <strong>Users</strong>
                 </Heading>
-                <Box gap="xsmall">
+                <Box gap="xsmall" pad="medium">
                   {props.users.map((el, index) => {
                     return <UserList key={index} userId={el} dashboardId={props.dashboardId}/>
                   })}

@@ -74,7 +74,7 @@ const ColumnDelete = (props) => {
                       onChange={(event) => setValue(event.target.value)}
                     />
                   </FormField>
-                  <Box justify="center" direction="row" gap="medium">
+                  <Box justify="center" direction="row" gap="medium" pad="medium">
                     <Button type="submit" primary label="Submit" />
                   </Box>
                 </Form>
