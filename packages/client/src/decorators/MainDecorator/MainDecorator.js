@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
-import {Box, Main} from 'grommet';
-import { SideBar } from "../../components/SideBar/SideBar";
+import {Box} from 'grommet';
 import { Login } from "../../pages/Login/Login";
 import { Switch, Route } from "react-router-dom";
 import NotFound from "../../pages/NotFound/NotFound";
@@ -41,7 +40,7 @@ const MainDecorator = (props) => {
               component={loggedIn ? DashboardPage : Login}
               exact
             />
-            <Route component={NotFound} />
+            <Route component={loggedIn ? NotFound : Login} />
           </Switch>
         </Box>
     </Fragment>
