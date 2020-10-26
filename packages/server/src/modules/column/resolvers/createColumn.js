@@ -18,7 +18,7 @@ const createColumn = async (
 
   const newDashboard = Dashboard.findByIdAndUpdate(
     { _id: dashboard },
-    {$push: {columns: newColumn._id}},
+    {$push: {columns: newColumn._id.toString()}},
     { new: true }
     )
 

@@ -11,13 +11,6 @@ const deleteColumn= async (_, args) => {
     { $pull: { columns: id } }
   );
 
-  column.issues.map(async issue => {
-    await Issue.findByIdAndUpdate(
-      { _id: issue },
-      { $unset: { column: id } }
-    );
-  })
-
   return Column.findByIdAndDelete(id);
 }
 

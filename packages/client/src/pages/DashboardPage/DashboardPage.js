@@ -9,7 +9,7 @@ import { myEmailVar } from "../../cache";
 
 export const DashboardPage = () => {
   const { dashboardId } = useParams();
-  const { data, loading, error } = useQuery(meQuery);
+  const { data, loading, error, refetch } = useQuery(meQuery);
   const email = useReactiveVar(myEmailVar);
 
   if (data) {
@@ -22,7 +22,7 @@ export const DashboardPage = () => {
         <Box direction="column" basis="full">
           {data.me.dashboards.includes(dashboardId) ? (
             <Fragment>
-              <Dashboard dashboardId={dashboardId} />
+              <Dashboard refetch={refetch} dashboardId={dashboardId} />
             </Fragment>
           ) : (
             <Redirect

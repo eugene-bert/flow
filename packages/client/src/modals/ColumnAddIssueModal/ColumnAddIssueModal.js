@@ -18,6 +18,7 @@ export const ColumnAddIssueModal = (props) => {
       addToast(`Saved Successfully`, { appearance: 'success' })
       setShow(false)
       props.refetch()
+      props.updateData()
     }).catch((error) => {
       addToast(error.message, { appearance: 'error' })
     });

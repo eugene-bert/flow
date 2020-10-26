@@ -11,7 +11,7 @@ const createColumn = gql`
 `;
 
 const deleteColumn = gql`
-    mutation($id: ID!){
+    mutation($id: String!){
         deleteColumn(id: $id) {
             id
             title

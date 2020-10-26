@@ -20,13 +20,13 @@ const UserList = (props) => {
   const email = useReactiveVar(myEmailVar)
   const { addToast } = useToasts()
 
-  //TODO: check users refetch
-
   const handleDelete = () => {
     unShare({variables: {email: data.searchUserById.email, dashboardId: props.dashboardId}}).then(data => {
       addToast(`Deleted Successfully`, { appearance: 'success' })
+      props.refetch()
       console.log(data)
     }).catch(error => {
+      props.refetch()
       addToast(error.message, { appearance: 'error' })
     })
   }
@@ -42,7 +42,8 @@ const UserList = (props) => {
   ) : null;
 };
 
-const AddUser = (props) => {
+const DashboardUsers = (props) => {
+  const [show, setShow] = useState(false);
   const [value, setValue] = React.useState('');
   const [share] = useMutation(shareDashboard);
   const { addToast } = useToasts()
@@ -50,27 +51,14 @@ const AddUser = (props) => {
   const handleSubmit = () => {
     share({variables: {email: value, dashboardId: props.dashboardId}}).then(data => {
       addToast(`${value} Saved Successfully`, { appearance: 'success' })
+      props.refetch()
       console.log(data)
     }).catch(error => {
       addToast(`There is no such user in system`, { appearance: 'error' })
+      props.refetch()
       console.log(error)
     })
   }
-
-  return (
-    <Fragment>
-        <TextInput
-          placeholder="User email"
-          value={value}
-          onChange={event => setValue(event.target.value)}
-        />
-        <Button label="Add user" margin="small" onClick={() => handleSubmit()}/>
-    </Fragment>
-  )
-}
-
-const DashboardUsers = (props) => {
-  const [show, setShow] = useState(false);
 
   return (
     <ButtonStyle>
@@ -102,10 +90,17 @@ const DashboardUsers = (props) => {
                 </Heading>
                 <Box gap="xsmall" pad="medium">
                   {props.users.map((el, index) => {
-                    return <UserList key={index} userId={el} dashboardId={props.dashboardId}/>
+                    return <UserList refetch={props.refetch} key={index} userId={el} dashboardId={props.dashboardId}/>
                   })}
                 </Box>
-                <AddUser dashboardId={props.dashboardId}/>
+                <Fragment>
+                  <TextInput
+                    placeholder="User email"
+                    value={value}
+                    onChange={event => setValue(event.target.value)}
+                  />
+                  <Button label="Add user" margin="small" onClick={() => handleSubmit()}/>
+                </Fragment>
               </Box>
             </Box>
           </Layer>

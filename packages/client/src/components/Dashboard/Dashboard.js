@@ -37,7 +37,8 @@ export const Dashboard = (props) => {
   });
   const [update] = useMutation(updateColumn);
   const [columns, setColumns] = useState([]);
-  useEffect(() => {
+
+  const updateData = () => {
     let columnArray = [];
     client
       .query({ query: dashboardQuery, variables: { id: props.dashboardId } })
@@ -54,7 +55,10 @@ export const Dashboard = (props) => {
             })
         );
       });
-  }, []);
+  }
+  useEffect(() => {
+    updateData()
+  }, [data]);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -98,7 +102,7 @@ export const Dashboard = (props) => {
 
       await update({ variables: { id: source.droppableId, issues: items } }).then(
         (data) => {
-          console.log(data);
+          updateData()
           refetch()
         }
       );
@@ -111,13 +115,13 @@ export const Dashboard = (props) => {
       );
 
       let sourceColumn = result[0].sourceColumn,
-        sourceIssues = result[0].sourceIssues,
-        destinationColumn = result[1].destinationColumn,
-        destinationIssues = result[1].destinationIssues;
+          sourceIssues = result[0].sourceIssues,
+          destinationColumn = result[1].destinationColumn,
+          destinationIssues = result[1].destinationIssues;
 
       await update({ variables: { id: sourceColumn, issues: sourceIssues } }).then(
         (data) => {
-          console.log(data);
+          updateData()
           refetch()
         }
       );
@@ -125,7 +129,7 @@ export const Dashboard = (props) => {
       await update({
         variables: { id: destinationColumn, issues: destinationIssues },
       }).then((data) => {
-        console.log(data);
+        updateData()
         refetch()
       });
     }
@@ -134,8 +138,8 @@ export const Dashboard = (props) => {
     <Fragment>
       <Fragment>
         <DashboardBar>
-          <ColumnCreate refetch={refetch} dashboardId={props.dashboardId} />
-          <DashboardDelete refetch={refetch} dashboardId={props.dashboardId} />
+          <ColumnCreate refetch={refetch} dashboardId={props.dashboardId} updateData={updateData}/>
+          <DashboardDelete refetch={props.refetch} dashboardId={props.dashboardId} />
           <DashboardUsers
             refetch={refetch}
             dashboardId={props.dashboardId}
@@ -147,7 +151,7 @@ export const Dashboard = (props) => {
         <DragDropContext onDragEnd={onDragEnd}>
           {data.dashboard.columns.map((el, index) => {
             return (
-              <DashboardColumn refetch={refetch} key={index} columnId={el} />
+              <DashboardColumn refetch={refetch} key={index} columnId={el} updateData={updateData}/>
             );
           })}
         </DragDropContext>

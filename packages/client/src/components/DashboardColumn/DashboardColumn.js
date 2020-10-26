@@ -6,8 +6,7 @@ import {ColumnAddIssueModal} from '../../modals/ColumnAddIssueModal/ColumnAddIss
 import ColumnDelete from '../ColumnDelete/ColumnDelete';
 import {DashboardIssue} from '../DashboardIssue/DashboardIssue';
 import styled from 'styled-components';
-import {dashboardColumnIssuesVar} from '../../cache';
-import {Box} from 'grommet';
+import {Box, Heading} from 'grommet';
 
 
 const Container = styled.div`
@@ -35,15 +34,15 @@ export const DashboardColumn = (props) => {
           <Container
             ref={provided.innerRef}
           >
-            <Title>{data.column.title}</Title>
+            <Heading level={3} textAlign="center">{data.column.title}</Heading>
             <TaskList>
               {data.column.issues.map((el,index) => {
-                return <DashboardIssue refetch={refetch} columnId={props.columnId} issueId={el} key={index} index={index}/>
+                return <DashboardIssue refetch={refetch} updateData={props.updateData} columnId={props.columnId} issueId={el} key={index} index={index}/>
               })}
             </TaskList>
             <Box align="center" justify="center">
-              <ColumnAddIssueModal refetch={refetch} columnId={props.columnId} columnName={data.column.title} dahsboard={data.column.dashboard}/>
-              <ColumnDelete/>
+              <ColumnAddIssueModal updateData={props.updateData} refetch={refetch} columnId={props.columnId} columnName={data.column.title} dahsboard={data.column.dashboard}/>
+              <ColumnDelete refetch={props.refetch} columnId={props.columnId} updateData={props.updateData}/>
             </Box>
             {provided.placeholder}
           </Container>

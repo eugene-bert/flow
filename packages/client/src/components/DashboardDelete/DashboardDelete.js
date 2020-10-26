@@ -22,8 +22,8 @@ const DashboardDelete = (props) => {
   const submitHandle = () => {
     if (value === "yes, please delete this dashboard") {
       remove({ variables: { id: props.dashboardId } }).then((data) => {
+        props.refetch()
         addToast('Dashboard was removed', { appearance: 'success' })
-        console.log(data);
       }).catch(error => {
         addToast(error.message, { appearance: 'error' })
       });

@@ -1,7 +1,7 @@
 import {useMutation, useQuery} from '@apollo/client';
 import {oneIssueQuery} from '../../graphql/queries/issue';
 import {Draggable} from 'react-beautiful-dnd';
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {Box, Button, Heading, Layer} from 'grommet/index';
 import {Paragraph, Text} from 'grommet';
@@ -32,7 +32,7 @@ export const DashboardIssue = (props) => {
       description = document.getElementsByClassName("issueEditDescription")[0]
         .innerHTML;
     update({ variables: { id, title, description }}).then((data) => {
-      console.log(data);
+      props.updateData()
       props.refetch()
       setShow(false);
     });
@@ -40,11 +40,15 @@ export const DashboardIssue = (props) => {
 
   const removeIssue = () => {
     issueDelete({ variables: { columnId: props.columnId, issueId: id  }}).then((data) => {
-      console.log(data);
+      props.updateData()
       props.refetch()
       setShow(false);
     });
   }
+
+  useEffect(() => {
+    props.updateData()
+  }, [])
 
   return data ? (
     <Draggable draggableId={props.issueId} index={props.index} key={props.issueId} >

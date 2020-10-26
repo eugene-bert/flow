@@ -1,10 +1,8 @@
-import React, { Fragment } from "react";
-import { Grid, Box, Text, Main } from "grommet";
+import React, {Fragment} from 'react';
+import { Grid, Box, Main } from "grommet";
 import { useQuery } from "@apollo/client";
-import { dashboardsQuery } from "../../graphql/queries/dashboard";
 import { DashboardsPageCard } from "../../components/DashboardsPageCard/DashboardsPageCard";
 import DashboardsPageCardCreate from "../../components/DashboardsPageCardCreate/DashboardsPageCardCreate";
-import { withApollo } from "@apollo/client/react/hoc";
 import { meQuery } from "../../graphql/queries/user";
 import styled from "styled-components";
 

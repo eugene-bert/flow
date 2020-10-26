@@ -29,6 +29,7 @@ const ColumnCreate = (props) => {
       variables: { title: inputs.title, dashboard: props.dashboardId },
     }).then((data) => {
       props.refetch();
+      props.updateData();
       setShow(false);
       addToast(`${inputs.title} created successfully`, { appearance: 'success' })
     }).catch(error => {
