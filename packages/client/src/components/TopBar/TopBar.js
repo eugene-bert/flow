@@ -1,6 +1,5 @@
-import { Box, Button, Heading } from "grommet/index";
+import { Box, Heading } from "grommet/index";
 import React from "react";
-import { Menu } from "grommet-icons/index";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import {isLoggedInVar} from '../../cache';

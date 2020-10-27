@@ -15,7 +15,7 @@ const ButtonStyle = styled.div`
 `;
 
 const UserList = (props) => {
-  const { data, loading, error, refetch } = useQuery(searchUserById, {variables: {id: props.userId}});
+  const { data } = useQuery(searchUserById, {variables: {id: props.userId}});
   const [unShare] = useMutation(unShareDashboard);
   const email = useReactiveVar(myEmailVar)
   const { addToast } = useToasts()

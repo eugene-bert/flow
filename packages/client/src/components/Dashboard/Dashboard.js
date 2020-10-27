@@ -13,6 +13,9 @@ import { updateColumn } from "../../graphql/mutations/column";
 import DashboardUsers from "../DashboardUsers/DashboardUsers";
 import { columnQuery } from "../../graphql/queries/column";
 import { client } from "../../index";
+import { css } from "@emotion/core";
+import {ClipLoader} from 'react-spinners';
+import {Heading} from 'grommet/index';
 
 const Container = styled.div`
   display: flex;
@@ -23,15 +26,26 @@ const Container = styled.div`
 const DashboardBar = styled.div`
   display: flex;
   justify-content: center;
-  margin: 20px;
+  margin: 15px;
   
   button {
     min-height: 84px;
   }
 `;
 
+
+const DashboardTitle = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const loader = css`
+  display: block;
+  margin: auto;
+`;
+
 export const Dashboard = (props) => {
-  const { data, loading, error, refetch } = useQuery(dashboardQuery, {
+  const { data, refetch } = useQuery(dashboardQuery, {
     variables: { id: props.dashboardId },
     fetchPolicy: 'cache-and-network'
   });
@@ -84,6 +98,7 @@ export const Dashboard = (props) => {
     ];
     return result;
   };
+
   const onDragEnd = async (result) => {
     const { source, destination, draggableId } = result;
 
@@ -136,6 +151,9 @@ export const Dashboard = (props) => {
   return data ? (
     <Fragment>
       <Fragment>
+        <DashboardTitle>
+          <Heading margin="none" level={3} textAlign="center">{data.dashboard.title}</Heading>
+        </DashboardTitle>
         <DashboardBar>
           <ColumnCreate refetch={refetch} dashboardId={props.dashboardId} updateData={updateData}/>
           <DashboardDelete refetch={props.refetch} dashboardId={props.dashboardId} />
@@ -156,5 +174,11 @@ export const Dashboard = (props) => {
         </DragDropContext>
       </Container>
     </Fragment>
-  ) : null;
+  ) : (
+    <ClipLoader
+      css={loader}
+      size={150}
+      color="#5d26c1"
+    />
+  );
 };

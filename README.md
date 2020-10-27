@@ -7,6 +7,9 @@ Issue tracking application
 - 🌱 MongoDb
 - 💅 Grommet
 
+
+![Image example](./project_info/Dashboard.png)
+
 Node:
 
 - NodeJS = 10.15.0

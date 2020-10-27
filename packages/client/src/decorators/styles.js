@@ -1,6 +1,3 @@
-import { Box } from "grommet/index";
-import React from "react";
-
 export const theme = {
   defaultMode: "light",
   global: {

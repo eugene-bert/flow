@@ -1,16 +1,19 @@
 import React, { Fragment } from "react";
 import { useParams, Redirect } from "react-router-dom";
-import { Box, Heading, Main, Paragraph } from "grommet/index";
-import { useQuery, useReactiveVar } from "@apollo/client";
-import { dashboardQuery } from "../../graphql/queries/dashboard";
+import { Box, Main } from "grommet/index";
+import { useQuery } from "@apollo/client";
 import { meQuery } from "../../graphql/queries/user";
 import { Dashboard } from "../../components/Dashboard/Dashboard";
 import { myEmailVar } from "../../cache";
 
 export const DashboardPage = () => {
   const { dashboardId } = useParams();
-  const { data, loading, error, refetch } = useQuery(meQuery);
-  const email = useReactiveVar(myEmailVar);
+  const { data, refetch } = useQuery(meQuery, {
+    variables: {
+      fetchPolicy: "cache-and-network",
+      notifyOnNetworkStatusChange: true,
+    }
+  });
 
   if (data) {
     myEmailVar(data.me.email);

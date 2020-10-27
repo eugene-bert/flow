@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import { Box, RadioButtonGroup, Text } from "grommet";
 import {
   Button,
@@ -11,8 +11,6 @@ import { useMutation } from "@apollo/client";
 import {deleteColumn} from '../../graphql/mutations/column';
 import {FormClose} from 'grommet-icons/index';
 import {useToasts} from 'react-toast-notifications';
-import {client} from '../../index';
-import {dashboardQuery} from '../../graphql/queries/dashboard';
 
 const ColumnDelete = (props) => {
   const [value, setValue] = React.useState(`no let's keep it`);
@@ -26,7 +24,6 @@ const ColumnDelete = (props) => {
          addToast(`Removed Successfully`, { appearance: 'success' })
         props.refetch()
       }).catch(error => {
-        // TODO: check why there is an error
         addToast(error.message, { appearance: 'error' })
       })
       setShow(false)

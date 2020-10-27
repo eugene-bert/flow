@@ -1,6 +1,6 @@
-import {useQuery, useReactiveVar} from '@apollo/client';
+import {useQuery} from '@apollo/client';
 import {columnQuery} from '../../graphql/queries/column';
-import React, {Fragment, useState} from 'react';
+import React, {Fragment} from 'react';
 import {Droppable} from 'react-beautiful-dnd';
 import {ColumnAddIssueModal} from '../../modals/ColumnAddIssueModal/ColumnAddIssueModal';
 import ColumnDelete from '../ColumnDelete/ColumnDelete';
@@ -15,15 +15,12 @@ const Container = styled.div`
    border: 1px solid lightgrey;
    border-radius: 15px;
 `;
-const Title = styled.h3`
-   padding: 8px;
-`;
 const TaskList = styled.div`
    padding: 8px;
 `;
 
 export const DashboardColumn = (props) => {
-  const { data, loading, error, refetch } = useQuery(columnQuery, {
+  const { data, refetch } = useQuery(columnQuery, {
     variables: { id: props.columnId }
   });
 

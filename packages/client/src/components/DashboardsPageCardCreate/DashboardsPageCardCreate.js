@@ -20,7 +20,7 @@ const DashboardsPageCardCreate = (props) => {
       setShow(false)
       addToast(`${inputs.title} created successfully`, { appearance: 'success' })
     }).catch(error => {
-      addToast(error.message, { appearance: 'error' })
+      addToast("Title should not be empty", { appearance: 'error' })
     });
   };
 

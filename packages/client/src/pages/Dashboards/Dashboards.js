@@ -5,6 +5,8 @@ import { DashboardsPageCard } from "../../components/DashboardsPageCard/Dashboar
 import DashboardsPageCardCreate from "../../components/DashboardsPageCardCreate/DashboardsPageCardCreate";
 import { meQuery } from "../../graphql/queries/user";
 import styled from "styled-components";
+import {ClipLoader} from 'react-spinners';
+import {css} from '@emotion/core';
 
 const DashboardBar = styled.div`
   display: flex;
@@ -17,8 +19,13 @@ const DashBoardsGrid = styled.div`
   margin: 0 auto;
 `;
 
+const loader = css`
+  display: block;
+  margin: auto;
+`;
+
 export const Dashboards = () => {
-  const { data, loading, error, refetch } = useQuery(meQuery);
+  const { data, refetch } = useQuery(meQuery);
 
   return data ? (
     <Fragment>
@@ -39,5 +46,11 @@ export const Dashboards = () => {
         </Main>
       </Box>
     </Fragment>
-  ) : null;
+  ) : (
+    <ClipLoader
+      css={loader}
+      size={150}
+      color="#5d26c1"
+    />
+  );
 };

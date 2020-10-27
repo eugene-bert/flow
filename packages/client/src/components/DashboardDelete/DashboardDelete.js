@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { Box, RadioButtonGroup, Text } from "grommet";
-import { useHistory } from "react-router-dom";
 import { Button, Form, FormField, Heading, Layer } from "grommet/index";
 import { useMutation } from "@apollo/client";
 import { deleteDashboard } from "../../graphql/mutations/dashboard";
@@ -16,19 +15,20 @@ const DashboardDelete = (props) => {
   const [value, setValue] = React.useState(`no let's keep it`);
   const [show, setShow] = useState(false);
   const [remove] = useMutation(deleteDashboard);
-  const history = useHistory();
+  // const history = useHistory();
   const { addToast } = useToasts()
 
   const submitHandle = () => {
     if (value === "yes, please delete this dashboard") {
       remove({ variables: { id: props.dashboardId } }).then((data) => {
-        props.refetch()
         addToast('Dashboard was removed', { appearance: 'success' })
       }).catch(error => {
         addToast(error.message, { appearance: 'error' })
       });
       setShow(false);
-      history.push("/dashboards");
+      // history.push("/dashboards");
+      window.location.pathname = "/dashboards"
+      //TODO: temporary rude solution for rerendering dashboards page - we can allow this because it's not regular action
     } else {
       setShow(false);
     }

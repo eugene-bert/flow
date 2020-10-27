@@ -6,19 +6,21 @@ import {dashboardQuery} from '../../graphql/queries/dashboard';
 
 export const DashboardsPageCard = (props) => {
   const history = useHistory();
-  const {data, loading, error} = useQuery(dashboardQuery, {variables: {id: props.dashboardId}})
+  const {data} = useQuery(dashboardQuery, {variables: {id: props.dashboardId}})
 
   return data ? (
     <Box
       align="center"
       justify="center"
-      pad="large"
+      pad="medium"
       round="large"
       height="small"
+      width={{max: "medium", min: "small"}}
       border={{ color: "brand" }}
       onClick={() => {
         history.push(`/dashboard/${props.dashboardId}`)
       }}
+      hoverIndicator={true}
     >
       <Text>{data.dashboard.title}</Text>
     </Box>

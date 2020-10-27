@@ -4,16 +4,12 @@ import { Login } from "../../pages/Login/Login";
 import { Switch, Route } from "react-router-dom";
 import NotFound from "../../pages/NotFound/NotFound";
 import { DashboardPage } from "../../pages/DashboardPage/DashboardPage";
-import { MyProfilePage } from "../../pages/MyProfilePage/MyProfilePage";
 import { useReactiveVar } from "@apollo/client";
-import { deviceSizeVar, isLoggedInVar } from "../../cache";
+import { isLoggedInVar } from "../../cache";
 import { Dashboards } from "../../pages/Dashboards/Dashboards";
 
 const MainDecorator = (props) => {
   const loggedIn = useReactiveVar(isLoggedInVar);
-  const deviceSize = useReactiveVar(deviceSizeVar);
-
-  deviceSizeVar(props.deviceSize);
 
   return (
     <Fragment>
@@ -28,11 +24,6 @@ const MainDecorator = (props) => {
             <Route
               path="/login"
               component={loggedIn ? Dashboards : Login}
-              exact
-            />
-            <Route
-              path="/profile"
-              component={loggedIn ? MyProfilePage : Login}
               exact
             />
             <Route

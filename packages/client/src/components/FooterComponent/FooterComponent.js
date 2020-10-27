@@ -1,5 +1,5 @@
 import React from "react";
-import {Anchor, Box, Footer, Text} from 'grommet';
+import { Box, Footer, Text} from 'grommet';
 
 export const FooterComponent = () => {
   return (

@@ -1,10 +1,10 @@
 import {useMutation, useQuery} from '@apollo/client';
 import {oneIssueQuery} from '../../graphql/queries/issue';
 import {Draggable} from 'react-beautiful-dnd';
-import React, {Fragment, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {Box, Button, Heading, Layer} from 'grommet/index';
-import {Paragraph, Text} from 'grommet';
+import {Text} from 'grommet';
 import {updateIssue, deleteIssue } from '../../graphql/mutations/issue';
 import {FormClose} from 'grommet-icons/index';
 
@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 export const DashboardIssue = (props) => {
-  const { data, loading, error } = useQuery(oneIssueQuery, {
+  const { data } = useQuery(oneIssueQuery, {
     variables: { id: props.issueId },
     fetchPolicy: "network-only"
   });

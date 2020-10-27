@@ -15,7 +15,7 @@ import {updateMeMutation} from '../../graphql/mutations/user';
 export const MyProfilePage = () => {
   const [inputs, setInputs] = useState({});
   const {email, firstName, lastName } = inputs
-  const {data, loading, error} = useQuery(meQuery)
+  const {data} = useQuery(meQuery)
   const [updateMe] = useMutation(updateMeMutation)
 
   const sumbitHandle = () => {
