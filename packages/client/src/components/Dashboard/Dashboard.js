@@ -86,16 +86,18 @@ export const Dashboard = (props) => {
   };
   const onDragEnd = async (result) => {
     const { source, destination, draggableId } = result;
+
+    // dropped outside the list
+    if (!destination) {
+      return;
+    }
+
     const destinationColumnData = columns.find(
       (el) => el[0] === destination.droppableId
     )[1];
     const sourceColumnData = columns.find(
       (el) => el[0] === source.droppableId
     )[1];
-    // dropped outside the list
-    if (!destination) {
-      return;
-    }
 
     if (source.droppableId === destination.droppableId) {
       const items = reorder(sourceColumnData, source.index, destination.index);
@@ -103,7 +105,6 @@ export const Dashboard = (props) => {
       await update({ variables: { id: source.droppableId, issues: items } }).then(
         (data) => {
           updateData()
-          refetch()
         }
       );
     } else {
@@ -122,7 +123,6 @@ export const Dashboard = (props) => {
       await update({ variables: { id: sourceColumn, issues: sourceIssues } }).then(
         (data) => {
           updateData()
-          refetch()
         }
       );
 
@@ -130,7 +130,6 @@ export const Dashboard = (props) => {
         variables: { id: destinationColumn, issues: destinationIssues },
       }).then((data) => {
         updateData()
-        refetch()
       });
     }
   };
