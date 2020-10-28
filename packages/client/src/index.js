@@ -8,7 +8,7 @@ import {cache} from './cache'
 
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:5001",
+  uri: "http://167.99.243.86:5001/",
 });
 
 const authLink = setContext((_, { headers }) => {

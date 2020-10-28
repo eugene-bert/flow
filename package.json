@@ -10,7 +10,7 @@
   },
   "scripts": {
     "client": "yarn workspace flow-client start",
-    "server": "yarn workspace flow-server dev",
+    "server": "yarn workspace flow-server start",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "workspaces": [
