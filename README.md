@@ -23,13 +23,13 @@ yarn install
 
 Start: 
 ```
-npm start
+yarn start
 ```
 Launch server application: 
 ```
-npm run server
+yarn server
 ```
 Launch client application:
 ```
-npm run client
+yarn client
 ```
